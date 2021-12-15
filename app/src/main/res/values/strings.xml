@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">MyApp</string>
+    <string name="register"><u>Register</u></string>
+    <string-array name="departments">
+        <item> Choose Department </item>
+        <item> CS </item>
+        <item> Electrical Engineering </item>
+        <item> Mechanical Engineering </item>
+        <item> Structural Engineering </item>
+        <item> Physiotherapy </item>
+        <item> Psychology </item>
+    </string-array>
+</resources>
