@@ -23,7 +23,7 @@ public class StudyActivity extends AppCompatActivity {
         course_spinner= findViewById(R.id.course);
 
         List<String> departments_list= new ArrayList<>();
-        departments_list.add("Choose Department");
+        //departments_list.add("Choose Department");
         departments_list.add("CS");
         departments_list.add("Electrical Engineering");
         departments_list.add("Mechanical Engineering");
