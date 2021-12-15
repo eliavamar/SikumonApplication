@@ -16,10 +16,10 @@
         android:inputType="textEmailAddress"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.691"
+        app:layout_constraintHorizontal_bias="0.84"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.154" />
+        app:layout_constraintVertical_bias="0.166" />
 
     <EditText
         android:id="@+id/Password"
@@ -49,23 +49,25 @@
 
     <TextView
         android:id="@+id/EmailView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Email:"
+        android:layout_width="52dp"
+        android:layout_height="22dp"
         android:layout_marginRight="20dp"
+        android:text="Email:"
         android:textSize="20sp"
         app:layout_constraintBaseline_toBaselineOf="@+id/Email"
-        app:layout_constraintEnd_toStartOf="@+id/Email" />
+        app:layout_constraintEnd_toStartOf="@+id/Email"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/PasswordView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Password:"
         android:layout_marginRight="20dp"
+        android:text="Password:"
         android:textSize="20sp"
         app:layout_constraintBaseline_toBaselineOf="@+id/Password"
-        app:layout_constraintEnd_toStartOf="@+id/Password" />
+        app:layout_constraintEnd_toStartOf="@+id/Password"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <RadioGroup
         android:id="@+id/radio"
@@ -96,10 +98,12 @@
         android:id="@+id/RegisterBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="52dp"
+        android:layout_marginBottom="10dp"
         android:text="Register"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/radio"
-        app:layout_constraintHorizontal_bias="0.252"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/radio"
         app:layout_constraintTop_toBottomOf="@+id/department" />
 
