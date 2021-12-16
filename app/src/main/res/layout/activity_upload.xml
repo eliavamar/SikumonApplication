@@ -4,31 +4,37 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".StudyActivity">
+    tools:context=".UploadActivity">
 
     <RadioGroup
         android:id="@+id/permission"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="44dp"
+        android:layout_marginTop="56dp"
         android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="@+id/state"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/state"
-        app:layout_constraintTop_toBottomOf="@+id/state">
-
+        app:layout_constraintEnd_toEndOf="@+id/course"
+        app:layout_constraintHorizontal_bias="0.411"
+        app:layout_constraintStart_toStartOf="@+id/course"
+        app:layout_constraintTop_toBottomOf="@+id/course">
         <RadioButton
             android:id="@+id/publicState"
-            android:layout_width="125dp"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_marginRight="30dp"
             android:text="Public" />
 
         <RadioButton
             android:id="@+id/privateState"
-            android:layout_width="138dp"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
+            android:layout_marginRight="30dp"
             android:text="Private" />
+
+        <RadioButton
+            android:id="@+id/groupState"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="Group" />
     </RadioGroup>
 
     <Spinner
@@ -54,31 +60,6 @@
         app:layout_constraintStart_toStartOf="@+id/department"
         app:layout_constraintTop_toBottomOf="@+id/department" />
 
-    <RadioGroup
-        android:id="@+id/state"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="56dp"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="@+id/course"
-        app:layout_constraintHorizontal_bias="0.411"
-        app:layout_constraintStart_toStartOf="@+id/course"
-        app:layout_constraintTop_toBottomOf="@+id/course">
-
-        <RadioButton
-            android:id="@+id/online"
-            android:layout_width="122dp"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="30dp"
-            android:text="Online"
-            />
-
-        <RadioButton
-            android:id="@+id/frontal"
-            android:layout_width="140dp"
-            android:layout_height="wrap_content"
-            android:text="Frontal" />
-    </RadioGroup>
 
     <EditText
         android:id="@+id/comment"
@@ -97,12 +78,12 @@
         android:id="@+id/upload"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Create group"
+        android:text="Upload"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/comment"
         app:layout_constraintHorizontal_bias="0.487"
         app:layout_constraintStart_toStartOf="@+id/comment"
         app:layout_constraintTop_toBottomOf="@+id/comment"
-        app:layout_constraintVertical_bias="0.083" />
+        app:layout_constraintVertical_bias="0.1" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

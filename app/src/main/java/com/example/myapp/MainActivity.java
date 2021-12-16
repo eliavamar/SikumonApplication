@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
                                         // Sign in success, update UI with the signed-in user's information
                                         Toast.makeText(MainActivity.this, "Sign-In success.",
                                                 Toast.LENGTH_SHORT).show();
-                                        startActivity(new Intent(MainActivity.this,StudyActivity.class));
+                                        startActivity(new Intent(MainActivity.this,PortalActivity.class));
                                         finish();
                                     } else {
                                         // If sign in fails, display a message to the user.
