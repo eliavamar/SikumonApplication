@@ -39,7 +39,7 @@ public class StudyActivity extends AppCompatActivity {
         setContentView(R.layout.activity_study);
         department_spinner= findViewById(R.id.department);
         course_spinner= findViewById(R.id.course);
-        create=findViewById(R.id.upload);
+        create=findViewById(R.id.uploadBtn);
         comment=findViewById(R.id.comment);
         permissions=findViewById(R.id.permission);
         state=findViewById(R.id.state);
