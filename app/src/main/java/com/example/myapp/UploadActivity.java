@@ -184,7 +184,7 @@ public class UploadActivity extends AppCompatActivity {
                             Intent data =activityResult.getData();
                             if(result == RESULT_OK && data != null&& data.getData() != null){
                                 pdfUri=data.getData(); // return the uri of the selected  PDF
-                                notification.setText("A file is selected : "+data.getData().getLastPathSegment());
+                                notification.setText(data.getData().toString());
                             }
                             else
                                 Toast.makeText(UploadActivity.this,"Please select a PDF file",Toast.LENGTH_LONG).show();
@@ -230,19 +230,17 @@ public class UploadActivity extends AppCompatActivity {
                 if(taskSnapshot.getMetadata()==null||taskSnapshot.getMetadata().getReference()==null) {
                     Toast.makeText(UploadActivity.this, "Invalid URL", Toast.LENGTH_SHORT).show();
                 }
-//                String url=taskSnapshot.getMetadata().getReference().getDownloadUrl().toString();// URL of the Upload file
-
+                    Task<Uri> uriTask = taskSnapshot.getStorage().getDownloadUrl();
+                    while (!uriTask.isComplete());
+                    Uri uri= uriTask.getResult();
+                    String url=pdfUri.toString();// URL of the Upload file
                     int radioButtonID = radioGroup.getCheckedRadioButtonId();
                     RadioButton radioButton =  radioGroup.findViewById(radioButtonID);
                     String selectedText =  radioButton.getText().toString();
                     DatabaseReference reference=database.getReference();//return the path to root
-                    PDF.put("Key",reference.push().getKey());
-                    PDF.put("Course",course_spinner.getSelectedItem().toString());
-                    PDF.put("Department",department_name);
                     PDF.put("Status",selectedText);
-                    PDF.put("FileName",fileName);
-                    PDF.put("URL",""+pdfUri);
-                    reference.child(PDF.get("Key")).setValue(PDF).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    PDF.put("URL",uri.toString());
+                    reference.child(department_name).child(course_spinner.getSelectedItem().toString()).child(fileName).setValue(PDF).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             if(task.isSuccessful()){
