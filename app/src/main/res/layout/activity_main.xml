@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/library"
     tools:context=".MainActivity">
 
     <TextView
@@ -13,6 +14,7 @@
         android:layout_marginTop="144dp"
         android:text="Welcome to Sikumon!"
         android:textSize="30sp"
+        android:textColor="@color/purple_500"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
@@ -20,9 +22,13 @@
 
     <TextView
         android:id="@+id/EmailTextView"
+        android:background="@color/white"
+        android:alpha="0.7"
+        android:textColor="@color/purple_500"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Email:"
+        android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.184"
@@ -32,10 +38,14 @@
 
     <TextView
         android:id="@+id/PasswordTextView"
+        android:textColor="@color/purple_500"
+        android:background="@color/white"
+        android:alpha="0.7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="84dp"
         android:text="Password:"
+        android:textSize="20dp"
         app:layout_constraintEnd_toEndOf="@+id/EmailTextView"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/EmailTextView"
@@ -43,6 +53,7 @@
 
     <EditText
         android:id="@+id/EmailField"
+        android:background="@color/white"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="48dp"
@@ -57,7 +68,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
+        android:background="@color/white"
         android:ems="10"
+        android:hint="*******"
         android:inputType="textPassword"
         app:layout_constraintBaseline_toBaselineOf="@+id/PasswordTextView"
         app:layout_constraintStart_toEndOf="@+id/PasswordTextView" />
@@ -76,15 +89,33 @@
 
     <TextView
         android:id="@+id/RegisterLink"
+        android:background="@color/white"
+        android:alpha="0.8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/register"
+        android:textColor="@color/blue"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/ForgetPass"
+        app:layout_constraintHorizontal_bias="0.508"
+        app:layout_constraintStart_toStartOf="@+id/ForgetPass"
+        app:layout_constraintTop_toBottomOf="@+id/ForgetPass"
+        app:layout_constraintVertical_bias="0.268" />
+
+    <TextView
+        android:id="@+id/ForgetPass"
+        android:background="@color/white"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Forgot Password?"
+        android:alpha="0.8"
+        android:textColor="@color/blue"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/LoginBtn"
+        app:layout_constraintHorizontal_bias="0.24"
         app:layout_constraintStart_toStartOf="@+id/LoginBtn"
         app:layout_constraintTop_toBottomOf="@+id/LoginBtn"
-        app:layout_constraintVertical_bias="0.326"
-        android:textColor="@color/blue"
-        />
+        app:layout_constraintVertical_bias="0.226" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -23,6 +23,7 @@ public class activity_view extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         Intent i = getIntent();
         String dene = (String)i.getSerializableExtra("URL");
         Toast.makeText(activity_view.this, dene,Toast.LENGTH_LONG);

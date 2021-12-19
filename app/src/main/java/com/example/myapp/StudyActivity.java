@@ -39,6 +39,7 @@ public class StudyActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_study);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         department_spinner= findViewById(R.id.department);
         course_spinner= findViewById(R.id.course);
         create=findViewById(R.id.uploadBtn);

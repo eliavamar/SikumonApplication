@@ -58,6 +58,7 @@ public class UploadActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_upload);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         department_spinner= findViewById(R.id.department);
         course_spinner= findViewById(R.id.course);
         uploadFileBut =findViewById(R.id.uploadBtn);
@@ -233,7 +234,6 @@ public class UploadActivity extends AppCompatActivity {
                     Task<Uri> uriTask = taskSnapshot.getStorage().getDownloadUrl();
                     while (!uriTask.isComplete());
                     Uri uri= uriTask.getResult();
-                    String url=pdfUri.toString();// URL of the Upload file
                     int radioButtonID = radioGroup.getCheckedRadioButtonId();
                     RadioButton radioButton =  radioGroup.findViewById(radioButtonID);
                     String selectedText =  radioButton.getText().toString();

@@ -68,6 +68,7 @@
             android:layout_width="122dp"
             android:layout_height="wrap_content"
             android:layout_marginRight="30dp"
+            android:layout_marginLeft="10dp"
             android:text="Online" />
 
         <RadioButton
@@ -80,6 +81,7 @@
         <RadioButton
             android:id="@+id/frontal"
             android:layout_width="140dp"
+            android:layout_marginRight="10dp"
             android:layout_height="wrap_content"
             android:text="Frontal" />
     </RadioGroup>

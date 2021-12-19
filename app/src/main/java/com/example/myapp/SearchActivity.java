@@ -47,9 +47,9 @@ public class SearchActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         FileName=findViewById(R.id.FileName);
         department_spinner= findViewById(R.id.department);
-//        pdfView=(PDFView)findViewById(R.id.pdfView);
         searchFileButton=findViewById(R.id.searchFile);
         List<String> departments_list= new ArrayList<>();
         course_spinner= findViewById(R.id.course); departments_list.add("Choose Department");
