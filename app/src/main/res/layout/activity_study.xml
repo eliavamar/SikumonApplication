@@ -10,12 +10,11 @@
         android:id="@+id/permission"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="44dp"
+        android:layout_marginTop="20dp"
         android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="@+id/state"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/state"
-        app:layout_constraintTop_toBottomOf="@+id/state">
+        app:layout_constraintEnd_toEndOf="@+id/course"
+        app:layout_constraintStart_toStartOf="@+id/course"
+        app:layout_constraintTop_toBottomOf="@+id/course">
 
         <RadioButton
             android:id="@+id/publicState"
@@ -47,10 +46,10 @@
         android:id="@+id/course"
         android:layout_width="275dp"
         android:layout_height="45dp"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="28dp"
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="@+id/department"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/department"
         app:layout_constraintTop_toBottomOf="@+id/department" />
 
@@ -58,20 +57,25 @@
         android:id="@+id/state"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="56dp"
+        android:layout_marginTop="24dp"
         android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="@+id/course"
-        app:layout_constraintHorizontal_bias="0.411"
-        app:layout_constraintStart_toStartOf="@+id/course"
-        app:layout_constraintTop_toBottomOf="@+id/course">
+        app:layout_constraintEnd_toEndOf="@+id/permission"
+        app:layout_constraintStart_toStartOf="@+id/permission"
+        app:layout_constraintTop_toBottomOf="@+id/permission">
 
         <RadioButton
             android:id="@+id/online"
             android:layout_width="122dp"
             android:layout_height="wrap_content"
             android:layout_marginRight="30dp"
-            android:text="Online"
-            />
+            android:text="Online" />
+
+        <RadioButton
+            android:id="@+id/hybrid"
+            android:layout_width="122dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="30dp"
+            android:text="Hybrid" />
 
         <RadioButton
             android:id="@+id/frontal"
@@ -84,14 +88,14 @@
         android:id="@+id/comment"
         android:layout_width="355dp"
         android:layout_height="113dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="36dp"
         android:ems="10"
         android:hint="Write your comments"
         android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="@+id/permission"
-        app:layout_constraintHorizontal_bias="0.531"
-        app:layout_constraintStart_toStartOf="@+id/permission"
-        app:layout_constraintTop_toBottomOf="@+id/permission" />
+        app:layout_constraintEnd_toEndOf="@+id/link"
+        app:layout_constraintHorizontal_bias="0.507"
+        app:layout_constraintStart_toStartOf="@+id/link"
+        app:layout_constraintTop_toBottomOf="@+id/link" />
 
     <Button
         android:id="@+id/uploadBtn"
@@ -103,6 +107,20 @@
         app:layout_constraintHorizontal_bias="0.487"
         app:layout_constraintStart_toStartOf="@+id/comment"
         app:layout_constraintTop_toBottomOf="@+id/comment"
-        app:layout_constraintVertical_bias="0.083" />
+        app:layout_constraintVertical_bias="0.185" />
+
+    <EditText
+        android:id="@+id/link"
+        android:layout_width="290dp"
+        android:layout_height="44dp"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:hint="Link"
+        android:visibility="invisible"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="@+id/state"
+        app:layout_constraintHorizontal_bias="0.561"
+        app:layout_constraintStart_toStartOf="@+id/state"
+        app:layout_constraintTop_toBottomOf="@+id/state" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

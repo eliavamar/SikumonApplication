@@ -11,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -31,8 +32,9 @@ public class StudyActivity extends AppCompatActivity {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     Button create;
     RadioGroup permissions, state;
+    //RadioButton permission_selected;
     Map<String,Object> studyGroupData=new HashMap<>();
-    EditText comment;
+    EditText comment,link;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,8 +43,32 @@ public class StudyActivity extends AppCompatActivity {
         course_spinner= findViewById(R.id.course);
         create=findViewById(R.id.uploadBtn);
         comment=findViewById(R.id.comment);
+        link=findViewById(R.id.link);
         permissions=findViewById(R.id.permission);
         state=findViewById(R.id.state);
+
+        //link.setFocusable(false);
+        state.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                switch (i){
+                    case R.id.online:
+                        link.setVisibility(View.VISIBLE);
+                        break;
+                    case R.id.hybrid:
+                        link.setVisibility(View.VISIBLE);
+                        break;
+                    case R.id.frontal:
+                        link.setVisibility(View.INVISIBLE);
+                        link.getText().clear();
+
+                        break;
+                    default:
+                        System.err.println("Error not valid permission option!");
+                }
+            }
+        });
+
         List<String> departments_list= new ArrayList<>();
         departments_list.add("Choose Department");
         departments_list.add("CS");
@@ -54,6 +80,8 @@ public class StudyActivity extends AppCompatActivity {
 
         ArrayAdapter<String> adapter_1 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item,departments_list);
         adapter_1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+
 
         department_spinner.setAdapter(adapter_1);
         department_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -142,25 +170,31 @@ public class StudyActivity extends AppCompatActivity {
         });
     }
     public void fillMapData(){
-        switch (permissions.getCheckedRadioButtonId()){
+        switch (state.getCheckedRadioButtonId()){
             case R.id.online:
-                studyGroupData.put("Permission","Online");
+                studyGroupData.put("State","Online");
+                break;
+            case R.id.hybrid:
+                studyGroupData.put("State","Hybrid");
                 break;
             case R.id.frontal:
-                studyGroupData.put("Permission","Frontal");
+                studyGroupData.put("State","Frontal");
                 break;
             default:
                 System.err.println("Error not valid permission option!");
         }
-        switch (permissions.getCheckedRadioButtonId()){
+        switch (state.getCheckedRadioButtonId()){
             case R.id.publicState:
-                studyGroupData.put("State","Public");
+                studyGroupData.put("Permission","Public");
                 break;
             case R.id.privateState:
-                studyGroupData.put("State","Private");
+                studyGroupData.put("Permission","Private");
                 break;
             default:
                 System.err.println("Error not valid state option!");
+        }
+        if(!TextUtils.isEmpty(link.getText().toString())) {
+            studyGroupData.put("Link", link.getText().toString());
         }
         studyGroupData.put("Department",department_spinner.getSelectedItem().toString());
         studyGroupData.put("Course",course_spinner.getSelectedItem().toString());
@@ -175,4 +209,18 @@ public class StudyActivity extends AppCompatActivity {
         adapter_2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         course_spinner.setAdapter(adapter_2);
     }
+//    public void checkButton(View v) {
+//        int radioId = permissions.getCheckedRadioButtonId();
+//        Toast.makeText(this, "Selected Radio Button: " + radioId,
+//                Toast.LENGTH_SHORT).show();
+//
+//        permission_selected = findViewById(radioId);
+//
+////        if(permission_selected.getText()=="Online") {
+////            link.setFocusableInTouchMode(true);
+////        }
+////        Toast.makeText(this, "Selected Radio Button: " + permission_selected.getText(),
+////                Toast.LENGTH_SHORT).show();
+//
+//    }
 }
