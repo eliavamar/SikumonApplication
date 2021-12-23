@@ -9,22 +9,24 @@
 
     <Button
         android:id="@+id/StudyGroup"
-            android:layout_width="141dp"
-        android:layout_height="150dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_centerHorizontal="true"
         android:drawableTop="@drawable/ic_action_study_group"
         android:text="Study Group"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/Search"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.129"
+        app:layout_constraintHorizontal_bias="0.215"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView"
         app:layout_constraintVertical_bias="1.0" />
 
     <Button
         android:id="@+id/Search"
-        android:layout_width="141dp"
-        android:layout_height="150dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_centerHorizontal="true"
         android:layout_marginEnd="4dp"
         android:layout_marginBottom="303dp"
         android:drawableTop="@drawable/ic_search"
@@ -32,38 +34,41 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.466"
+        app:layout_constraintHorizontal_bias="0.6"
         app:layout_constraintStart_toEndOf="@+id/StudyGroup"
         app:layout_constraintTop_toBottomOf="@+id/textView"
-        app:layout_constraintVertical_bias="0.874" />
+        app:layout_constraintVertical_bias="0.349" />
 
     <Button
         android:id="@+id/Favorite"
-        android:layout_width="141dp"
-        android:layout_height="150dp"
-        android:text="Favorite"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_centerHorizontal="true"
         android:drawableTop="@drawable/ic_favorite"
+        android:text="Favorite"
+        android:textSize="13sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/Upload"
-        app:layout_constraintEnd_toStartOf="@+id/Upload"
-        app:layout_constraintHorizontal_bias="0.454"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.215"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/StudyGroup"
         app:layout_constraintVertical_bias="1.0" />
 
     <Button
         android:id="@+id/Upload"
-        android:layout_width="141dp"
-        android:layout_height="150dp"
-        android:layout_marginEnd="52dp"
-        android:layout_marginBottom="124dp"
-        android:text="Upload"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="44dp"
+        android:layout_marginEnd="60dp"
         android:drawableTop="@drawable/ic_upload"
+        android:text="Upload"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Search"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/Favorite"
+        app:layout_constraintTop_toBottomOf="@+id/Search" />
 
     <TextView
         android:id="@+id/textView"
@@ -78,4 +83,32 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.139" />
+
+    <Button
+        android:id="@+id/studyGroup"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="60dp"
+        android:drawableTop="@drawable/ic_group"
+        android:text="My Study Groups"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/myFiles"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Upload"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <Button
+        android:id="@+id/myFiles"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="68dp"
+        android:layout_marginTop="56dp"
+        android:drawableTop="@drawable/ic_file"
+        android:text="My Files"
+        app:layout_constraintEnd_toStartOf="@+id/studyGroup"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Favorite" />
 </androidx.constraintlayout.widget.ConstraintLayout>

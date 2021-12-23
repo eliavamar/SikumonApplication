@@ -5,6 +5,8 @@
       <map>
         <entry key="..\:/Users/eliav/AndroidStudioProjects/MyApp/app/src/main/res/drawable-anydpi/ic_action_study_group.xml" value="0.15989583333333332" />
         <entry key="..\:/Users/eliav/AndroidStudioProjects/MyApp/app/src/main/res/drawable-anydpi/ic_favorite.xml" value="0.15989583333333332" />
+        <entry key="..\:/Users/eliav/AndroidStudioProjects/MyApp/app/src/main/res/drawable-anydpi/ic_file.xml" value="0.2890625" />
+        <entry key="..\:/Users/eliav/AndroidStudioProjects/MyApp/app/src/main/res/drawable-anydpi/ic_group.xml" value="0.2890625" />
         <entry key="..\:/Users/eliav/AndroidStudioProjects/MyApp/app/src/main/res/drawable-anydpi/ic_search.xml" value="0.1" />
         <entry key="..\:/Users/eliav/AndroidStudioProjects/MyApp/app/src/main/res/drawable-anydpi/ic_upload.xml" value="0.15989583333333332" />
         <entry key="..\:/Users/eliav/AndroidStudioProjects/MyApp/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.15989583333333332" />
@@ -12,11 +14,16 @@
         <entry key="..\:/Users/eliav/AndroidStudioProjects/MyApp/app/src/main/res/layout/activity_favorite.xml" value="0.1390625" />
         <entry key="..\:/Users/eliav/AndroidStudioProjects/MyApp/app/src/main/res/layout/activity_forget_pass.xml" value="0.27291666666666664" />
         <entry key="..\:/Users/eliav/AndroidStudioProjects/MyApp/app/src/main/res/layout/activity_main.xml" value="0.33" />
+        <entry key="..\:/Users/eliav/AndroidStudioProjects/MyApp/app/src/main/res/layout/activity_my_assets.xml" value="0.27291666666666664" />
+        <entry key="..\:/Users/eliav/AndroidStudioProjects/MyApp/app/src/main/res/layout/activity_my_files.xml" value="0.25" />
+        <entry key="..\:/Users/eliav/AndroidStudioProjects/MyApp/app/src/main/res/layout/activity_my_study_groups.xml" value="0.27291666666666664" />
         <entry key="..\:/Users/eliav/AndroidStudioProjects/MyApp/app/src/main/res/layout/activity_open_study.xml" value="0.14375" />
         <entry key="..\:/Users/eliav/AndroidStudioProjects/MyApp/app/src/main/res/layout/activity_portal.xml" value="0.18" />
         <entry key="..\:/Users/eliav/AndroidStudioProjects/MyApp/app/src/main/res/layout/activity_register.xml" value="0.25" />
         <entry key="..\:/Users/eliav/AndroidStudioProjects/MyApp/app/src/main/res/layout/activity_search.xml" value="0.2" />
+        <entry key="..\:/Users/eliav/AndroidStudioProjects/MyApp/app/src/main/res/layout/activity_studt_group_search.xml" value="0.27291666666666664" />
         <entry key="..\:/Users/eliav/AndroidStudioProjects/MyApp/app/src/main/res/layout/activity_study.xml" value="0.25" />
+        <entry key="..\:/Users/eliav/AndroidStudioProjects/MyApp/app/src/main/res/layout/activity_study_group_search.xml" value="0.27291666666666664" />
         <entry key="..\:/Users/eliav/AndroidStudioProjects/MyApp/app/src/main/res/layout/activity_upload.xml" value="0.33" />
         <entry key="..\:/Users/eliav/AndroidStudioProjects/MyApp/app/src/main/res/layout/activity_view.xml" value="0.1" />
         <entry key="..\:/Users/eliav/AndroidStudioProjects/MyApp/app/src/main/res/layout/activity_view_pdf.xml" value="0.1" />

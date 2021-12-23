@@ -13,45 +13,44 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApp">
         <activity
+            android:name=".MyFiles"
+            android:exported="false" />
+        <activity
+            android:name=".MyStudyGroups"
+            android:exported="false"
+            android:parentActivityName=".PortalActivity"/>
+        <activity
             android:name=".ForgetPassActivity"
             android:exported="false"
-            android:parentActivityName=".MainActivity"
-            />
+            android:parentActivityName=".MainActivity" />
         <activity
             android:name=".activity_view"
             android:exported="false"
-            android:parentActivityName=".PortalActivity"
-            />
+            android:parentActivityName=".PortalActivity" />
         <activity
             android:name=".FavoriteActivity"
             android:exported="false"
-            android:parentActivityName=".PortalActivity"
-            />
+            android:parentActivityName=".PortalActivity" />
         <activity
             android:name=".UploadActivity"
             android:exported="false"
-            android:parentActivityName=".PortalActivity"
-            />
+            android:parentActivityName=".PortalActivity" />
         <activity
             android:name=".SearchActivity"
             android:exported="false"
-            android:parentActivityName=".PortalActivity"
-            />
+            android:parentActivityName=".PortalActivity" />
         <activity
             android:name=".PortalActivity"
             android:exported="false"
-            android:parentActivityName=".MainActivity"
-            />
+            android:parentActivityName=".MainActivity" />
         <activity
             android:name=".StudyActivity"
             android:exported="false"
-            android:parentActivityName=".PortalActivity"
-            />
+            android:parentActivityName=".PortalActivity" />
         <activity
             android:name=".RegisterActivity"
             android:exported="false"
-            android:parentActivityName=".MainActivity"
-            />
+            android:parentActivityName=".MainActivity" />
         <activity
             android:name=".MainActivity"
             android:exported="true">

@@ -30,6 +30,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -52,6 +53,7 @@ public class UploadActivity extends AppCompatActivity {
     EditText FileName;
     Uri pdfUri; // uri are actually URLs that are meant for local storage
     ProgressDialog progressDialog;
+    FirebaseAuth mAuth;
 
 
     @Override
@@ -60,6 +62,7 @@ public class UploadActivity extends AppCompatActivity {
         setContentView(R.layout.activity_upload);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         department_spinner= findViewById(R.id.department);
+        mAuth=FirebaseAuth.getInstance();
         course_spinner= findViewById(R.id.course);
         uploadFileBut =findViewById(R.id.uploadBtn);
         selectFileBut =findViewById(R.id.selectFileBut);
@@ -239,6 +242,7 @@ public class UploadActivity extends AppCompatActivity {
                     String selectedText =  radioButton.getText().toString();
                     DatabaseReference reference=database.getReference();//return the path to root
                     PDF.put("Status",selectedText);
+                    PDF.put("Email",mAuth.getCurrentUser().getEmail());
                     PDF.put("URL",uri.toString());
                     reference.child(department_name).child(course_spinner.getSelectedItem().toString()).child(fileName).setValue(PDF).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override

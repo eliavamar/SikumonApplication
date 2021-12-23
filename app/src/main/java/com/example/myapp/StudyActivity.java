@@ -11,13 +11,13 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -32,6 +32,7 @@ public class StudyActivity extends AppCompatActivity {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     Button create;
     RadioGroup permissions, state;
+    FirebaseAuth mAuth;
     //RadioButton permission_selected;
     Map<String,Object> studyGroupData=new HashMap<>();
     EditText comment,link;
@@ -47,7 +48,7 @@ public class StudyActivity extends AppCompatActivity {
         link=findViewById(R.id.link);
         permissions=findViewById(R.id.permission);
         state=findViewById(R.id.state);
-
+        mAuth = FirebaseAuth.getInstance();
         //link.setFocusable(false);
         state.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -93,7 +94,7 @@ public class StudyActivity extends AppCompatActivity {
                     courses_list.add("Data Bases");
                     courses_list.add("OS");
                     courses_list.add("OOP");
-                    fillspinner();
+                    fill_spinner();
 
                 }
                 else if(adapterView.getItemAtPosition(i).equals("Electrical Engineering")){
@@ -101,35 +102,35 @@ public class StudyActivity extends AppCompatActivity {
                     courses_list.add("Electro-magnetism");
                     courses_list.add("Control systems");
                     courses_list.add("Electricity Technology and Machines");
-                    fillspinner();
+                    fill_spinner();
                 }
                 else if(adapterView.getItemAtPosition(i).equals("Mechanical Engineering")){
                     courses_list.clear();
                     courses_list.add("Manufacturing and Design");
                     courses_list.add("Dynamics");
                     courses_list.add("Instrumentation and Data Acquisition");
-                    fillspinner();
+                    fill_spinner();
                 }
                 else if(adapterView.getItemAtPosition(i).equals("Structural Engineering")){
                     courses_list.clear();
                     courses_list.add("Computer-Aided Design of Structures");
                     courses_list.add("Computer Analysis of Structures");
                     courses_list.add("Storage and Industrial Structures");
-                    fillspinner();
+                    fill_spinner();
                 }
                 else if(adapterView.getItemAtPosition(i).equals("Physiotherapy")){
                     courses_list.clear();
                     courses_list.add("Introduction to Treatment");
                     courses_list.add("General Surgery");
                     courses_list.add("Neurophysiology");
-                    fillspinner();
+                    fill_spinner();
                 }
                 else if(adapterView.getItemAtPosition(i).equals("Psychology")){
                     courses_list.clear();
                     courses_list.add("General Psychology");
                     courses_list.add("History of Psychology");
                     courses_list.add("Statistics");
-                    fillspinner();
+                    fill_spinner();
                 }
                 courses_list.add(0,"Choose Course");
             }
@@ -182,9 +183,9 @@ public class StudyActivity extends AppCompatActivity {
                 studyGroupData.put("State","Frontal");
                 break;
             default:
-                System.err.println("Error not valid permission option!");
+                System.err.println("Error not valid state option!");
         }
-        switch (state.getCheckedRadioButtonId()){
+        switch (permissions.getCheckedRadioButtonId()){
             case R.id.publicState:
                 studyGroupData.put("Permission","Public");
                 break;
@@ -192,7 +193,7 @@ public class StudyActivity extends AppCompatActivity {
                 studyGroupData.put("Permission","Private");
                 break;
             default:
-                System.err.println("Error not valid state option!");
+                System.err.println("Error not valid permission option!");
         }
         if(!TextUtils.isEmpty(link.getText().toString())) {
             studyGroupData.put("Link", link.getText().toString());
@@ -204,8 +205,9 @@ public class StudyActivity extends AppCompatActivity {
         }else {
             studyGroupData.put("Comment", comment.getText().toString());
         }
+        studyGroupData.put("Email",mAuth.getCurrentUser().getEmail());
     }
-    public void fillspinner(){
+    public void fill_spinner(){
         ArrayAdapter<String> adapter_2 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item,courses_list);
         adapter_2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         course_spinner.setAdapter(adapter_2);
