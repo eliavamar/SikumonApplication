@@ -11,7 +11,7 @@ import android.widget.Button;
 import android.widget.Toolbar;
 
 public class PortalActivity extends AppCompatActivity {
-    Button study,upload,favorite,search,myStudyGroups;
+    Button study,upload,favorite,search,myStudyGroups,myFiles;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,12 +22,20 @@ public class PortalActivity extends AppCompatActivity {
         favorite=findViewById(R.id.Favorite);
         search=findViewById(R.id.Search);
         myStudyGroups=findViewById(R.id.studyGroup);
+        myFiles=findViewById(R.id.myFiles);
+        myFiles.setOnClickListener(new View.OnClickListener() {
+                                       @Override
+                                       public void onClick(View view) {
+                                           startActivity(new Intent(PortalActivity.this, MyFiles.class));
+
+                                       }
+                                   });
         myStudyGroups.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(PortalActivity.this,MyStudyGroups.class));
-            }
-        });
+                    @Override
+                    public void onClick(View view) {
+                        startActivity(new Intent(PortalActivity.this, MyStudyGroups.class));
+                    }
+                });
         study.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

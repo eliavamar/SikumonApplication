@@ -244,7 +244,7 @@ public class UploadActivity extends AppCompatActivity {
                     PDF.put("Status",selectedText);
                     PDF.put("Email",mAuth.getCurrentUser().getEmail());
                     PDF.put("URL",uri.toString());
-                    reference.child(department_name).child(course_spinner.getSelectedItem().toString()).child(fileName).setValue(PDF).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    reference.child("PDF").child(department_name).child(course_spinner.getSelectedItem().toString()).child(fileName).setValue(PDF).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             if(task.isSuccessful()){

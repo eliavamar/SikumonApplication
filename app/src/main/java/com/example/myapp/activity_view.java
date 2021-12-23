@@ -26,7 +26,6 @@ public class activity_view extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         Intent i = getIntent();
         String dene = (String)i.getSerializableExtra("URL");
-        Toast.makeText(activity_view.this, dene,Toast.LENGTH_LONG);
         pdfView=(PDFView)findViewById(R.id.pdfView);
         new RetrievePdfStream().execute(dene);
     }

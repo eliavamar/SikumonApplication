@@ -137,10 +137,14 @@ public class SearchActivity extends AppCompatActivity {
                     fileName=FileName.getText().toString();
                     courseName=course_spinner.getSelectedItem().toString();
                     departmentName=department_spinner.getSelectedItem().toString();
-                    databaseReference= FirebaseDatabase.getInstance().getReference(departmentName).child(courseName).child(fileName);
+                    databaseReference= FirebaseDatabase.getInstance().getReference("PDF/"+departmentName+"/"+courseName+"/"+fileName);
                     databaseReference.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            if(snapshot.getChildrenCount()==0){
+                                Toast.makeText(SearchActivity.this,"There is no file in(Path): PDF/"+departmentName+"/"+courseName+"/"+fileName+"",Toast.LENGTH_LONG).show();
+                                return;
+                            }
                             HashMap<String,String> map=new HashMap<>();
                             for (DataSnapshot data:snapshot.getChildren()) {
                                 map.put(data.getKey(),data.getValue(String.class));
@@ -148,8 +152,6 @@ public class SearchActivity extends AppCompatActivity {
                             Toast.makeText(SearchActivity.this, map.get("URL"), Toast.LENGTH_SHORT).show();
                             intent.putExtra("URL",map.get("URL")); //Put your id to your next Intent
                             startActivity(intent);
-                            finish();
-//                            new RetrievePdfStream().execute(map.get("URL"));
                         }
 
                         @Override
@@ -170,30 +172,5 @@ public class SearchActivity extends AppCompatActivity {
         course_spinner.setAdapter(adapter_2);
     }
 
-//    class  RetrievePdfStream extends AsyncTask<String,Void, InputStream> {
-//
-//        @Override
-//        protected InputStream doInBackground(String... strings) {
-//            InputStream inputStream= null;
-//            try {
-//                URL uRl=new URL(strings[0]);
-//                HttpURLConnection urlConnection= (HttpURLConnection) uRl.openConnection();
-//                if(urlConnection.getResponseCode()==200){
-//                    inputStream=new BufferedInputStream(urlConnection.getInputStream());
-//
-//                }
-//            }
-//            catch (IOException E){
-//                return  null;
-//            }
-//            return inputStream;
-//        }
-//        protected void onPostExecute(InputStream inputStream){
-//            PDFView.Configurator temp =pdfView.fromStream(inputStream);
-//            if(temp==null)
-//                Toast.makeText(SearchActivity.this,"null",Toast.LENGTH_LONG).show();
-//            else
-//                temp.load();
-//        }
-//    }
+
 }
