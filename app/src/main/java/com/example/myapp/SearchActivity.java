@@ -30,107 +30,105 @@ public class SearchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        FileName=findViewById(R.id.FileName);
-        department_spinner= findViewById(R.id.department);
-        searchFileButton=findViewById(R.id.searchFile);
-        List<String> departments_list= new ArrayList<>();
-        dataBase=new DB();
-        course_spinner= findViewById(R.id.course); departments_list.add("Choose Department");
-        departments_list.add("CS");
-        departments_list.add("Electrical Engineering");
-        departments_list.add("Mechanical Engineering");
-        departments_list.add("Structural Engineering");
-        departments_list.add("Physiotherapy");
-        departments_list.add("Psychology");
+        FileName = findViewById(R.id.FileName);
+        department_spinner = findViewById(R.id.department);
+        searchFileButton = findViewById(R.id.searchFile);
+        dataBase = new DB();
+        course_spinner = findViewById(R.id.course);
+        DepartmentsManagement departmentsManagement =new DepartmentsManagement();
+        List<String> departments_list= departmentsManagement.get_department_list();
         ArrayAdapter<String> adapter_1 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item,departments_list);
-        adapter_1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        department_spinner.setAdapter(adapter_1);
-        department_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                if(adapterView.getItemAtPosition(i).equals("CS")){
-                    courses_list.clear();
-                    courses_list.add("Data Bases");
-                    courses_list.add("OS");
-                    courses_list.add("OOP");
-                    fill_spinner();
-
-                }
-                else if(adapterView.getItemAtPosition(i).equals("Electrical Engineering")){
-                    courses_list.clear();
-                    courses_list.add("Electro-magnetism");
-                    courses_list.add("Control systems");
-                    courses_list.add("Electricity Technology and Machines");
-                    fill_spinner();
-                }
-                else if(adapterView.getItemAtPosition(i).equals("Mechanical Engineering")){
-                    courses_list.clear();
-                    courses_list.add("Manufacturing and Design");
-                    courses_list.add("Dynamics");
-                    courses_list.add("Instrumentation and Data Acquisition");
-                    fill_spinner();
-                }
-                else if(adapterView.getItemAtPosition(i).equals("Structural Engineering")){
-                    courses_list.clear();
-                    courses_list.add("Computer-Aided Design of Structures");
-                    courses_list.add("Computer Analysis of Structures");
-                    courses_list.add("Storage and Industrial Structures");
-                    fill_spinner();
-                }
-                else if(adapterView.getItemAtPosition(i).equals("Physiotherapy")){
-                    courses_list.clear();
-                    courses_list.add("Introduction to Treatment");
-                    courses_list.add("General Surgery");
-                    courses_list.add("Neurophysiology");
-                    fill_spinner();
-                }
-                else if(adapterView.getItemAtPosition(i).equals("Psychology")){
-                    courses_list.clear();
-                    courses_list.add("General Psychology");
-                    courses_list.add("History of Psychology");
-                    courses_list.add("Statistics");
-                    fill_spinner();
-                }
-                courses_list.add(0,"Choose Course");
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-
-        });
+        ArrayAdapter<String> adapter_2 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item,courses_list);
+        departmentsManagement.setSpinner(adapter_1,department_spinner,course_spinner, courses_list, adapter_2);
         searchFileButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(department_spinner.getSelectedItem().toString().equals("Choose Department")){
-                    Toast.makeText(SearchActivity.this,"Must choose department",Toast.LENGTH_LONG).show();
-                }
-                else if(course_spinner.getSelectedItem()==null||course_spinner.getSelectedItem().toString().equals("Choose Course")){
-                    Toast.makeText(SearchActivity.this,"Must choose course",Toast.LENGTH_LONG).show();
-                }
-                else if(FileName.getText().toString().equals("")){
-                    Toast.makeText(SearchActivity.this,"Must enter a file name",Toast.LENGTH_LONG).show();
-                }
-                else{
-                    String fileName,courseName,departmentName;
-                    fileName=FileName.getText().toString();
-                    courseName=course_spinner.getSelectedItem().toString();
-                    departmentName=department_spinner.getSelectedItem().toString();
-                    String path="PDF/"+departmentName+"/"+courseName+"/"+fileName;
-                    pdf=new PDFFile(path,null);
-                    dataBase.searchFile(pdf,SearchActivity.this);
+                if (department_spinner.getSelectedItem().toString().equals("Choose Department")) {
+                    Toast.makeText(SearchActivity.this, "Must choose department", Toast.LENGTH_LONG).show();
+                } else if (course_spinner.getSelectedItem() == null || course_spinner.getSelectedItem().toString().equals("Choose Course")) {
+                    Toast.makeText(SearchActivity.this, "Must choose course", Toast.LENGTH_LONG).show();
+                } else if (FileName.getText().toString().equals("")) {
+                    Toast.makeText(SearchActivity.this, "Must enter a file name", Toast.LENGTH_LONG).show();
+                } else {
+                    String fileName, courseName, departmentName;
+                    fileName = FileName.getText().toString();
+                    courseName = course_spinner.getSelectedItem().toString();
+                    departmentName = department_spinner.getSelectedItem().toString();
+                    String path = "PDF/" + departmentName + "/" + courseName + "/" + fileName;
+                    pdf = new PDFFile(path, null);
+                    dataBase.searchFile(pdf, SearchActivity.this);
 
                 }
             }
         });
-    }
 
-    public void fill_spinner(){
-        ArrayAdapter<String> adapter_2 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item,courses_list);
-        adapter_2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        course_spinner.setAdapter(adapter_2);
+//        List<String> departments_list = new ArrayList<>();
+//        departments_list.add("Choose Department");
+//        departments_list.add("CS");
+//        departments_list.add("Electrical Engineering");
+//        departments_list.add("Mechanical Engineering");
+//        departments_list.add("Structural Engineering");
+//        departments_list.add("Physiotherapy");
+//        departments_list.add("Psychology");
+//        ArrayAdapter<String> adapter_1 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, departments_list);
+//        adapter_1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//        department_spinner.setAdapter(adapter_1);
+//        department_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+//                if (adapterView.getItemAtPosition(i).equals("CS")) {
+//                    courses_list.clear();
+//                    courses_list.add("Data Bases");
+//                    courses_list.add("OS");
+//                    courses_list.add("OOP");
+//                    fill_spinner();
+//
+//                } else if (adapterView.getItemAtPosition(i).equals("Electrical Engineering")) {
+//                    courses_list.clear();
+//                    courses_list.add("Electro-magnetism");
+//                    courses_list.add("Control systems");
+//                    courses_list.add("Electricity Technology and Machines");
+//                    fill_spinner();
+//                } else if (adapterView.getItemAtPosition(i).equals("Mechanical Engineering")) {
+//                    courses_list.clear();
+//                    courses_list.add("Manufacturing and Design");
+//                    courses_list.add("Dynamics");
+//                    courses_list.add("Instrumentation and Data Acquisition");
+//                    fill_spinner();
+//                } else if (adapterView.getItemAtPosition(i).equals("Structural Engineering")) {
+//                    courses_list.clear();
+//                    courses_list.add("Computer-Aided Design of Structures");
+//                    courses_list.add("Computer Analysis of Structures");
+//                    courses_list.add("Storage and Industrial Structures");
+//                    fill_spinner();
+//                } else if (adapterView.getItemAtPosition(i).equals("Physiotherapy")) {
+//                    courses_list.clear();
+//                    courses_list.add("Introduction to Treatment");
+//                    courses_list.add("General Surgery");
+//                    courses_list.add("Neurophysiology");
+//                    fill_spinner();
+//                } else if (adapterView.getItemAtPosition(i).equals("Psychology")) {
+//                    courses_list.clear();
+//                    courses_list.add("General Psychology");
+//                    courses_list.add("History of Psychology");
+//                    courses_list.add("Statistics");
+//                    fill_spinner();
+//                }
+//                courses_list.add(0, "Choose Course");
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> adapterView) {
+//
+//            }
+//
+//        });
     }
+//    public void fill_spinner(){
+//        ArrayAdapter<String> adapter_2 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item,courses_list);
+//        adapter_2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//        course_spinner.setAdapter(adapter_2);
+//    }
 
 
 }

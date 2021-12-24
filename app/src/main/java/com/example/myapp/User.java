@@ -1,5 +1,13 @@
 package com.example.myapp;
 
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class User {
     Email email;
     Password pass;
@@ -47,4 +55,5 @@ public class User {
     public void setOrientation(String orientation) {
         this.orientation = orientation;
     }
+
 }

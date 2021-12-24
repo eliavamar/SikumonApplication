@@ -42,8 +42,10 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String pass=PasswordField.getText().toString();
                 String email=EmailField.getText().toString();
-                if(validEmail(email) && validPassword(pass))
-                    dataBase.signIn(email,pass,MainActivity.this);
+                if(validEmail(email) && validPassword(pass)) {
+                    dataBase.signIn(email, pass, MainActivity.this);
+                    //startActivity(new Intent(MainActivity.this, PortalActivity.class));
+                }
                 else{
                     Toast.makeText(MainActivity.this, "Sign-In failed.",
                             Toast.LENGTH_SHORT).show();
