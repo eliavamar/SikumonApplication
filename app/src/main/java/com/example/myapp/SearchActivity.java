@@ -1,47 +1,29 @@
 package com.example.myapp;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.github.barteksc.pdfviewer.PDFView;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
-import java.io.BufferedInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class SearchActivity extends AppCompatActivity {
     public Spinner department_spinner,course_spinner;
     public Button searchFileButton;
     public List<String> courses_list= new ArrayList<>();
-//    public PDFView pdfView;
+    PDFFile pdf;
+    DB dataBase;
     EditText FileName;
-    DatabaseReference databaseReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +34,7 @@ public class SearchActivity extends AppCompatActivity {
         department_spinner= findViewById(R.id.department);
         searchFileButton=findViewById(R.id.searchFile);
         List<String> departments_list= new ArrayList<>();
+        dataBase=new DB();
         course_spinner= findViewById(R.id.course); departments_list.add("Choose Department");
         departments_list.add("CS");
         departments_list.add("Electrical Engineering");
@@ -117,8 +100,6 @@ public class SearchActivity extends AppCompatActivity {
             }
 
         });
-
-
         searchFileButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -132,40 +113,19 @@ public class SearchActivity extends AppCompatActivity {
                     Toast.makeText(SearchActivity.this,"Must enter a file name",Toast.LENGTH_LONG).show();
                 }
                 else{
-                    Intent intent = new Intent(SearchActivity.this, activity_view.class);
                     String fileName,courseName,departmentName;
                     fileName=FileName.getText().toString();
                     courseName=course_spinner.getSelectedItem().toString();
                     departmentName=department_spinner.getSelectedItem().toString();
-                    databaseReference= FirebaseDatabase.getInstance().getReference("PDF/"+departmentName+"/"+courseName+"/"+fileName);
-                    databaseReference.addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            if(snapshot.getChildrenCount()==0){
-                                Toast.makeText(SearchActivity.this,"There is no file in(Path): PDF/"+departmentName+"/"+courseName+"/"+fileName+"",Toast.LENGTH_LONG).show();
-                                return;
-                            }
-                            HashMap<String,String> map=new HashMap<>();
-                            for (DataSnapshot data:snapshot.getChildren()) {
-                                map.put(data.getKey(),data.getValue(String.class));
-                            }
-                            Toast.makeText(SearchActivity.this, map.get("URL"), Toast.LENGTH_SHORT).show();
-                            intent.putExtra("URL",map.get("URL")); //Put your id to your next Intent
-                            startActivity(intent);
-                        }
+                    String path="PDF/"+departmentName+"/"+courseName+"/"+fileName;
+                    pdf=new PDFFile(path,null);
+                    dataBase.searchFile(pdf,SearchActivity.this);
 
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
-                            Toast.makeText(SearchActivity.this, "Wrong path", Toast.LENGTH_SHORT).show();
-                        }
-                    });
                 }
             }
         });
-
-
-
     }
+
     public void fill_spinner(){
         ArrayAdapter<String> adapter_2 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item,courses_list);
         adapter_2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

@@ -1,9 +1,5 @@
 package com.example.myapp;
-
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -14,13 +10,6 @@ import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
-
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.FirebaseFirestore;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -29,11 +18,9 @@ import java.util.Map;
 public class StudyActivity extends AppCompatActivity {
     Spinner department_spinner,course_spinner;
     List<String> courses_list= new ArrayList<>();
-    FirebaseFirestore db = FirebaseFirestore.getInstance();
     Button create;
     RadioGroup permissions, state;
-    FirebaseAuth mAuth;
-    //RadioButton permission_selected;
+    DB dataBase;
     Map<String,Object> studyGroupData=new HashMap<>();
     EditText comment,link;
     @Override
@@ -46,10 +33,9 @@ public class StudyActivity extends AppCompatActivity {
         create=findViewById(R.id.uploadBtn);
         comment=findViewById(R.id.comment);
         link=findViewById(R.id.link);
+        dataBase=new DB();
         permissions=findViewById(R.id.permission);
         state=findViewById(R.id.state);
-        mAuth = FirebaseAuth.getInstance();
-        //link.setFocusable(false);
         state.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
@@ -79,7 +65,6 @@ public class StudyActivity extends AppCompatActivity {
         departments_list.add("Structural Engineering");
         departments_list.add("Physiotherapy");
         departments_list.add("Psychology");
-
         ArrayAdapter<String> adapter_1 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item,departments_list);
         adapter_1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
@@ -152,22 +137,7 @@ public class StudyActivity extends AppCompatActivity {
                     return;
                 }
                 fillMapData();
-                db.collection("studyGroups")
-                        .add(studyGroupData)
-                        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                            @Override
-                            public void onSuccess(DocumentReference documentReference) {
-                                Toast.makeText(StudyActivity.this,"Created a study group!",Toast.LENGTH_LONG).show();
-                                startActivity(new Intent(StudyActivity.this,PortalActivity.class));
-                                finish();
-                            }
-                        })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Toast.makeText(StudyActivity.this,"Failed creating a study group!",Toast.LENGTH_LONG).show();
-                            }
-                        });
+                dataBase.setStudyGroup(studyGroupData,StudyActivity.this);
             }
         });
     }
@@ -205,25 +175,11 @@ public class StudyActivity extends AppCompatActivity {
         }else {
             studyGroupData.put("Comment", comment.getText().toString());
         }
-        studyGroupData.put("Email",mAuth.getCurrentUser().getEmail());
     }
     public void fill_spinner(){
         ArrayAdapter<String> adapter_2 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item,courses_list);
         adapter_2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         course_spinner.setAdapter(adapter_2);
     }
-//    public void checkButton(View v) {
-//        int radioId = permissions.getCheckedRadioButtonId();
-//        Toast.makeText(this, "Selected Radio Button: " + radioId,
-//                Toast.LENGTH_SHORT).show();
-//
-//        permission_selected = findViewById(radioId);
-//
-////        if(permission_selected.getText()=="Online") {
-////            link.setFocusableInTouchMode(true);
-////        }
-////        Toast.makeText(this, "Selected Radio Button: " + permission_selected.getText(),
-////                Toast.LENGTH_SHORT).show();
-//
-//    }
+
 }

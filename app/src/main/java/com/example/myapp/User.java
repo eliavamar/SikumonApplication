@@ -4,15 +4,28 @@ public class User {
     Email email;
     Password pass;
     String orientation;
-
-    public User(String email, String pass, String orientation) {
-        this.email.setEmail(email);
-        this.pass.setPass(pass);
+    String department;
+    public User(Email email, String pass, String orientation, String department) {
+        this.email=email;
+        this.pass =new Password(pass);
         this.orientation = orientation;
+        this.department=department;
     }
 
-    public String getEmail() {
-        return email.getEmail();
+    public void setEmail(Email email) {
+        this.email = email;
+    }
+
+    public String getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(String department) {
+        this.department = department;
+    }
+
+    public Email getEmail() {
+        return email;
     }
 
     public void setEmail(String email) {

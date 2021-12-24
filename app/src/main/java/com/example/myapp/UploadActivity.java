@@ -8,9 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-
 import android.Manifest;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -25,19 +23,7 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.OnProgressListener;
-import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -47,12 +33,10 @@ public class UploadActivity extends AppCompatActivity {
     RadioGroup radioGroup;
     List<String> courses_list= new ArrayList<>();
     Button selectFileBut, uploadFileBut;
-    FirebaseDatabase database;//use to store URLs of uploaded files
-    FirebaseStorage storage;//use to uploaded files
     TextView notification;
     EditText FileName;
+    DB dataBase;
     Uri pdfUri; // uri are actually URLs that are meant for local storage
-    ProgressDialog progressDialog;
     FirebaseAuth mAuth;
 
 
@@ -69,11 +53,8 @@ public class UploadActivity extends AppCompatActivity {
         notification=findViewById(R.id.notification);
         FileName=findViewById(R.id.FileName);
         radioGroup =findViewById(R.id.permission);
-        storage=FirebaseStorage.getInstance();//return an object of Firebase storage
-        database=FirebaseDatabase.getInstance();//return an object of Firebase Database
+        dataBase=new DB();
         List<String> departments_list= new ArrayList<>();
-        while (database==null)database=FirebaseDatabase.getInstance();
-        while (storage==null)storage=FirebaseStorage.getInstance();
         //initialize Spinners
         departments_list.add("Choose Department");
         departments_list.add("CS");
@@ -197,82 +178,34 @@ public class UploadActivity extends AppCompatActivity {
 
     private void uploadFile(Uri pdfUri) {
         String fileName=FileName.getText().toString();
-        StorageReference storageReference=storage.getReference();//return root path
-        HashMap<String,String> PDF=new HashMap<String,String>();
-        boolean flag =true;
         String department_name = department_spinner.getSelectedItem().toString();
         if(department_name.equals("Choose Department")){
             Toast.makeText(UploadActivity.this,"Must choose department",Toast.LENGTH_LONG).show();
-            flag=false;
+            return;
         }
         if(course_spinner.getSelectedItem()==null||course_spinner.getSelectedItem().toString().equals("Choose Course")){
             Toast.makeText(UploadActivity.this,"Must choose course",Toast.LENGTH_LONG).show();
-            flag = false;
+            return;
         }
         if(fileName.equals("")){
             Toast.makeText(UploadActivity.this,"Must enter a file name",Toast.LENGTH_LONG).show();
-            flag=false;
+            return;
         }
         if(pdfUri == null){
-            flag=false;
             Toast.makeText(UploadActivity.this,"Must choose PDF file",Toast.LENGTH_LONG).show();
+            return;
         }
         if(radioGroup ==null|| radioGroup.getCheckedRadioButtonId()==-1){
-            flag=false;
             Toast.makeText(UploadActivity.this,"Must choose file's permissions",Toast.LENGTH_LONG).show();
+            return;
         }
-        if(flag){
-            progressDialog=new ProgressDialog(UploadActivity.this);
-            progressDialog.setProgress(ProgressDialog.STYLE_HORIZONTAL);
-            progressDialog.show();
-        }
-        if(flag)
-        storageReference.child("UploadPDF"+System.currentTimeMillis()+".pdf").putFile(pdfUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            //store the url in realtime database
-            @Override
-            public void onSuccess(@NonNull UploadTask.TaskSnapshot taskSnapshot) {
-                if(taskSnapshot.getMetadata()==null||taskSnapshot.getMetadata().getReference()==null) {
-                    Toast.makeText(UploadActivity.this, "Invalid URL", Toast.LENGTH_SHORT).show();
-                }
-                    Task<Uri> uriTask = taskSnapshot.getStorage().getDownloadUrl();
-                    while (!uriTask.isComplete());
-                    Uri uri= uriTask.getResult();
-                    int radioButtonID = radioGroup.getCheckedRadioButtonId();
-                    RadioButton radioButton =  radioGroup.findViewById(radioButtonID);
-                    String selectedText =  radioButton.getText().toString();
-                    DatabaseReference reference=database.getReference();//return the path to root
-                    PDF.put("Status",selectedText);
-                    PDF.put("Email",mAuth.getCurrentUser().getEmail());
-                    PDF.put("URL",uri.toString());
-                    reference.child("PDF").child(department_name).child(course_spinner.getSelectedItem().toString()).child(fileName).setValue(PDF).addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            if(task.isSuccessful()){
-                                Toast.makeText(UploadActivity.this,"File successfully uploaded",Toast.LENGTH_SHORT).show();
-                                startActivity(new Intent(UploadActivity.this,PortalActivity.class));
-                            }
-                            else
-                                Toast.makeText(UploadActivity.this,"File not successfully uploaded",Toast.LENGTH_SHORT).show();
-                        }
-                    });
-
-
-
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(UploadActivity.this,"File not successfully uploaded (Failure)",Toast.LENGTH_SHORT).show();
-            }
-        }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
-                int currentProgress=(int)(100*snapshot.getBytesTransferred()/snapshot.getTotalByteCount());
-                progressDialog.setMessage("Uploading file..."+currentProgress+"%");
-
-            }
-        });
-
+        int radioButtonID = radioGroup.getCheckedRadioButtonId();
+        RadioButton radioButton =  radioGroup.findViewById(radioButtonID);
+        String selectedText =  radioButton.getText().toString();
+        String [] path={"PDF",department_name,course_spinner.getSelectedItem().toString(),fileName};
+        HashMap<String,String> fileProperties= new HashMap<String,String>();
+        fileProperties.put("Status",selectedText);
+        dataBase.upLoadFile(UploadActivity.this,path,fileProperties,pdfUri);
     }
 
     public void fill_spinner(){

@@ -107,6 +107,7 @@
         android:layout_marginTop="56dp"
         android:drawableTop="@drawable/ic_file"
         android:text="My Files"
+        android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@+id/studyGroup"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"

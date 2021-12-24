@@ -29,11 +29,9 @@ import java.util.List;
 
 public class MyFiles extends AppCompatActivity {
     ListView listView;
-    DatabaseReference databaseReference;
     List<String> PDF;
     List<String> PDFName;
-    FirebaseAuth mAuth;
-
+    DB dataBase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,8 +40,8 @@ public class MyFiles extends AppCompatActivity {
         PDF=new ArrayList<>();
         PDFName=new ArrayList<>();
         listView=findViewById(R.id.list_view);
-        mAuth = FirebaseAuth.getInstance();
-        retrievePDFFiles();
+        dataBase=new DB();
+        dataBase.myFileView(PDF,PDFName,listView,MyFiles.this);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -58,42 +56,5 @@ public class MyFiles extends AppCompatActivity {
         });
     }
 
-    private void retrievePDFFiles() {
-        databaseReference=FirebaseDatabase.getInstance().getReference("PDF");
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.getChildrenCount()==0)return;
-                for (DataSnapshot dep:snapshot.getChildren()) {
-                    for (DataSnapshot courses:dep.getChildren()) {
-                        for (DataSnapshot file_data:courses.getChildren()) {
-                            if(file_data.child("Email").getValue(String.class).equals(mAuth.getCurrentUser().getEmail())){
-                                    PDFName.add(file_data.getKey());
-                                    PDF.add(file_data.child("URL").getValue(String.class));
 
-                                }
-                        }
-                    }
-                }
-                ArrayAdapter arrayAdapter =new ArrayAdapter(getApplicationContext(), android.R.layout.simple_list_item_1,PDFName)
-                {
-                    @NonNull
-                    @Override
-                    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-                       View view=super.getView(position, convertView, parent);
-                        TextView textView=view.findViewById(android.R.id.text1);
-                        textView.setTextColor(Color.BLACK);
-                        textView.setTextSize(20);
-                        return  view;
-                    }
-                };
-                listView.setAdapter(arrayAdapter);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                return;
-            }
-        });
-    }
 }
