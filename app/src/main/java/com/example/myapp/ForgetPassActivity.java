@@ -17,7 +17,7 @@ public class ForgetPassActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         email=findViewById(R.id.EmailForget);
         reset=findViewById(R.id.ResetBtn);
-        dataBase=new DB();
+        dataBase=DB.getInstance();
         reset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

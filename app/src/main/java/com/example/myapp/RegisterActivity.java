@@ -30,7 +30,7 @@ public class RegisterActivity extends AppCompatActivity {
         radio=findViewById(R.id.radio);
         passRepeat=findViewById(R.id.PasswordRepeat);
         department=findViewById(R.id.department);
-        dataBase=new DB();
+        dataBase=DB.getInstance();
         RegisterBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

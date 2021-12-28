@@ -34,7 +34,7 @@ public class SearchActivity extends AppCompatActivity {
         department_spinner= findViewById(R.id.department);
         searchFileButton=findViewById(R.id.searchFile);
         List<String> departments_list= new ArrayList<>();
-        dataBase=new DB();
+        dataBase=DB.getInstance();
         course_spinner= findViewById(R.id.course); departments_list.add("Choose Department");
         departments_list.add("CS");
         departments_list.add("Electrical Engineering");
@@ -117,10 +117,9 @@ public class SearchActivity extends AppCompatActivity {
                     fileName=FileName.getText().toString();
                     courseName=course_spinner.getSelectedItem().toString();
                     departmentName=department_spinner.getSelectedItem().toString();
-                    String path="PDF/"+departmentName+"/"+courseName+"/"+fileName;
+                    String path="PDF/"+departmentName+"/"+courseName;
                     pdf=new PDFFile(path,null);
-                    dataBase.searchFile(pdf,SearchActivity.this);
-
+                    dataBase.searchFile(fileName,pdf,SearchActivity.this);
                 }
             }
         });

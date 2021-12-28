@@ -18,7 +18,7 @@ import java.net.URL;
 
 public class activity_view extends AppCompatActivity {
     public PDFView pdfView;
-
+    public static final int HTTP_OK=200;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,9 +37,8 @@ public class activity_view extends AppCompatActivity {
             try {
                 URL uRl=new URL(strings[0]);
                 HttpURLConnection urlConnection= (HttpURLConnection) uRl.openConnection();
-                if(urlConnection.getResponseCode()==200){
+                if(urlConnection.getResponseCode()==HTTP_OK){
                     inputStream=new BufferedInputStream(urlConnection.getInputStream());
-
                 }
             }
             catch (IOException E){

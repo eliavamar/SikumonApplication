@@ -53,7 +53,7 @@ public class UploadActivity extends AppCompatActivity {
         notification=findViewById(R.id.notification);
         FileName=findViewById(R.id.FileName);
         radioGroup =findViewById(R.id.permission);
-        dataBase=new DB();
+        dataBase=DB.getInstance();
         List<String> departments_list= new ArrayList<>();
         //initialize Spinners
         departments_list.add("Choose Department");

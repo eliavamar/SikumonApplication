@@ -7,6 +7,7 @@
     android:background="@drawable/portal"
     tools:context=".PortalActivity">
 
+
     <Button
         android:id="@+id/StudyGroup"
         android:layout_width="100dp"
@@ -75,9 +76,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:alpha="0.7"
-        android:background="@color/white"
         android:text="“Once you stop learning, you start dying”"
         android:textSize="20sp"
+        android:textColor="@color/white"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

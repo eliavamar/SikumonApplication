@@ -33,7 +33,7 @@ public class StudyActivity extends AppCompatActivity {
         create=findViewById(R.id.uploadBtn);
         comment=findViewById(R.id.comment);
         link=findViewById(R.id.link);
-        dataBase=new DB();
+        dataBase=DB.getInstance();
         permissions=findViewById(R.id.permission);
         state=findViewById(R.id.state);
         state.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {

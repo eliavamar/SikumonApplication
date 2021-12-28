@@ -34,9 +34,7 @@ public class MyStudyGroups extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         listView=findViewById(R.id.list_view);
         items=new ArrayList<>();
-        dataBase=new DB();
+        dataBase=DB.getInstance();
         dataBase.studyGroupView(listView,items,MyStudyGroups.this);
-
-
     }
 }

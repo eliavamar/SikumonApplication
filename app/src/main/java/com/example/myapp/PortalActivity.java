@@ -1,14 +1,11 @@
 package com.example.myapp;
 
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toolbar;
 
 public class PortalActivity extends AppCompatActivity {
     Button study,upload,favorite,search,myStudyGroups,myFiles;
@@ -26,7 +23,7 @@ public class PortalActivity extends AppCompatActivity {
         myFiles.setOnClickListener(new View.OnClickListener() {
                                        @Override
                                        public void onClick(View view) {
-                                           startActivity(new Intent(PortalActivity.this, MyFiles.class));
+                                           startActivity(new Intent(PortalActivity.this, MyFilesActivity.class));
 
                                        }
                                    });
