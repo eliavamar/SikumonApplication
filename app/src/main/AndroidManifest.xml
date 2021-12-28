@@ -13,12 +13,21 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApp">
         <activity
+            android:name=".ViewStudyGroupsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".SearchGroupsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".PortalSearchActivity"
+            android:exported="false" />
+        <activity
             android:name=".MyFiles"
             android:exported="false" />
         <activity
             android:name=".MyStudyGroups"
             android:exported="false"
-            android:parentActivityName=".PortalActivity"/>
+            android:parentActivityName=".PortalActivity" />
         <activity
             android:name=".ForgetPassActivity"
             android:exported="false"

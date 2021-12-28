@@ -4,8 +4,14 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/Orkabi/AndroidStudioProjects/SikumonApplication/app/src/main/res/layout/activity_main.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Orkabi/AndroidStudioProjects/SikumonApplication/app/src/main/res/layout/activity_my_study_groups.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Orkabi/AndroidStudioProjects/SikumonApplication/app/src/main/res/layout/activity_portal.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Orkabi/AndroidStudioProjects/SikumonApplication/app/src/main/res/layout/activity_portal_search.xml" value="0.25" />
         <entry key="..\:/Users/Orkabi/AndroidStudioProjects/SikumonApplication/app/src/main/res/layout/activity_search.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Orkabi/AndroidStudioProjects/SikumonApplication/app/src/main/res/layout/activity_search_groups.xml" value="0.19010416666666666" />
         <entry key="..\:/Users/Orkabi/AndroidStudioProjects/SikumonApplication/app/src/main/res/layout/activity_study.xml" value="0.20102564102564102" />
+        <entry key="..\:/Users/Orkabi/AndroidStudioProjects/SikumonApplication/app/src/main/res/layout/activity_view.xml" value="0.25" />
+        <entry key="..\:/Users/Orkabi/AndroidStudioProjects/SikumonApplication/app/src/main/res/layout/activity_view_study_groups.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/eliav/AndroidStudioProjects/MyApp/app/src/main/res/drawable-anydpi/ic_action_study_group.xml" value="0.15989583333333332" />
         <entry key="..\:/Users/eliav/AndroidStudioProjects/MyApp/app/src/main/res/drawable-anydpi/ic_favorite.xml" value="0.15989583333333332" />
         <entry key="..\:/Users/eliav/AndroidStudioProjects/MyApp/app/src/main/res/drawable-anydpi/ic_search.xml" value="0.1" />
