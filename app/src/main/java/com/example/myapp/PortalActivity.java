@@ -42,7 +42,7 @@ public class PortalActivity extends AppCompatActivity {
         search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(PortalActivity.this,SearchActivity.class));
+                startActivity(new Intent(PortalActivity.this,PortalSearchActivity.class));
             }
         });
         favorite.setOnClickListener(new View.OnClickListener() {

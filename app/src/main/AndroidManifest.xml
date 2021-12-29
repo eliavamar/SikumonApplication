@@ -23,7 +23,7 @@
         <activity
             android:name=".MyStudyGroups"
             android:exported="false"
-            android:parentActivityName=".PortalActivity" />
+            android:parentActivityName=".PortalActivity"/>
         <activity
             android:name=".ForgetPassActivity"
             android:exported="false"

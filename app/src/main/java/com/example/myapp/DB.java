@@ -31,6 +31,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FieldPath;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -413,6 +414,153 @@ public class DB   {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         Toast.makeText(activity,"Failed creating a study group!",Toast.LENGTH_LONG).show();
+                    }
+                });
+    }
+    public void CheckGroupKey(String department,String course,String Key,int SearchOption,AppCompatActivity activity) {
+        Intent intent = new Intent(activity, ViewStudyGroupsActivity.class);
+        intent.putExtra("Department",department);
+        intent.putExtra("Course",course);
+        intent.putExtra("ID",Key);
+        intent.putExtra("SearchOption",SearchOption);
+        activity.startActivity(intent);
+    }
+        public void GroupViewByKey(ListView listView,String department,String course,String GroupKey,ArrayList<String>items,AppCompatActivity activity) {
+        db.collection("studyGroups")
+                .whereEqualTo("Department",department)
+                .whereEqualTo("Course",course)
+                .whereEqualTo(FieldPath.documentId(),GroupKey)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                HashMap<String, String> map = new HashMap<String, String>();
+                                String item = "";
+                                item += "key: " + document.getId() + "\n";
+                                item += "Permissions: " + document.get("Permission", String.class) + "\n";
+                                item += "State: " + document.get("State", String.class) + "\n";
+                                item += "Comment: " + document.get("Comment", String.class) + "\n";
+                                if (!document.get("State", String.class).equals("Front"))
+                                    item += "Link: " + document.get("Link", String.class) + "\n";
+                                item += "Department: " + document.get("Department", String.class) + "\n";
+                                item += "Course: " + document.get("Course", String.class) + "\n";
+                                items.add(item);
+                            }
+                            listView.setAdapter(new ArrayAdapter<String>(activity.getApplicationContext(), android.R.layout.simple_list_item_1, items) {
+                                @Override
+                                public View getView(int position, View convertView, ViewGroup parent) {
+                                    View view = super.getView(position, convertView, parent);
+                                    TextView textView = ((TextView) view.findViewById(android.R.id.text1));
+                                    textView.setMinHeight(0); // Min Height
+                                    textView.setMinimumHeight(0); // Min Height
+                                    textView.setHeight(420); // Height
+                                    return view;
+                                }
+                            });
+                        } else {
+                            Toast.makeText(activity, "Error getting documents: ", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+    }
+    public void CheckGroupEmail(String department,String course,String Email,int SearchOption,AppCompatActivity activity) {
+        Intent intent = new Intent(activity, ViewStudyGroupsActivity.class);
+        intent.putExtra("Department",department);
+        intent.putExtra("Course",course);
+        intent.putExtra("ID",Email);
+        intent.putExtra("SearchOption",SearchOption);
+
+        activity.startActivity(intent);
+    }
+    public void GroupViewByEmail(ListView listView,String department,String course,String email,ArrayList<String>items,AppCompatActivity activity){
+        db.collection("studyGroups")
+                .whereEqualTo("Department",department)
+                .whereEqualTo("Course",course)
+                .whereEqualTo("Email", email)
+                //.whereEqualTo("Permission","Public")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                HashMap<String,String> map=new HashMap<String,String>();
+                                String item="";
+                                item+="key: "+document.getId()+"\n";
+                                item+="Permissions: "+document.get("Permission",String.class)+"\n";
+                                item+="State: "+document.get("State",String.class)+"\n";
+                                item+="Comment: "+document.get("Comment",String.class)+"\n";
+                                if(!document.get("State",String.class).equals("Front"))
+                                    item+="Link: "+document.get("Link",String.class)+"\n";
+                                item+="Department: "+document.get("Department",String.class)+"\n";
+                                item+="Course: "+document.get("Course",String.class)+"\n";
+                                items.add(item);
+                            }
+                            listView.setAdapter(new ArrayAdapter<String>(activity.getApplicationContext(),android.R.layout.simple_list_item_1,items){
+                                @Override
+                                public View getView(int position, View convertView, ViewGroup parent) {
+                                    View view = super.getView(position, convertView, parent);
+                                    TextView textView = ((TextView) view.findViewById(android.R.id.text1));
+                                    textView.setMinHeight(0); // Min Height
+                                    textView.setMinimumHeight(0); // Min Height
+                                    textView.setHeight(420); // Height
+                                    return view;
+                                }
+                            });
+                        } else {
+                            Toast.makeText(activity, "Error getting documents: ", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+    }
+    public void CheckGroupAll(String department, String course, String Empty, int SearchOption, AppCompatActivity activity) {
+        Intent intent = new Intent(activity, ViewStudyGroupsActivity.class);
+        intent.putExtra("Department",department);
+        intent.putExtra("Course",course);
+        intent.putExtra("ID", Empty);
+        intent.putExtra("SearchOption",SearchOption);
+
+        activity.startActivity(intent);
+    }
+    public void AllGroupView(ListView listView,String department,String course,ArrayList<String>items,AppCompatActivity activity){
+        db.collection("studyGroups")
+                .whereEqualTo("Department",department)
+                .whereEqualTo("Course",course)
+                //.whereEqualTo("Permission","Public")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                HashMap<String,String> map=new HashMap<String,String>();
+                                String item="";
+                                item+="key: "+document.getId()+"\n";
+                                item+="Permissions: "+document.get("Permission",String.class)+"\n";
+                                item+="State: "+document.get("State",String.class)+"\n";
+                                item+="Comment: "+document.get("Comment",String.class)+"\n";
+                                if(!document.get("State",String.class).equals("Front"))
+                                    item+="Link: "+document.get("Link",String.class)+"\n";
+                                item+="Department: "+document.get("Department",String.class)+"\n";
+                                item+="Course: "+document.get("Course",String.class)+"\n";
+                                items.add(item);
+                            }
+                            listView.setAdapter(new ArrayAdapter<String>(activity.getApplicationContext(),android.R.layout.simple_list_item_1,items){
+                                @Override
+                                public View getView(int position, View convertView, ViewGroup parent) {
+                                    View view = super.getView(position, convertView, parent);
+                                    TextView textView = ((TextView) view.findViewById(android.R.id.text1));
+                                    textView.setMinHeight(0); // Min Height
+                                    textView.setMinimumHeight(0); // Min Height
+                                    textView.setHeight(420); // Height
+                                    return view;
+                                }
+                            });
+                        } else {
+                            Toast.makeText(activity, "Error getting documents: ", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 });
     }
