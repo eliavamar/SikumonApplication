@@ -33,7 +33,7 @@ public class SearchGroupsActivity extends AppCompatActivity {
         Email = findViewById(R.id.Email);
         department_spinner = findViewById(R.id.department);
         searchGroupButton = findViewById(R.id.searchGroup);
-        dataBase = new DB();
+        dataBase =DB.getInstance();
         course_spinner = findViewById(R.id.course);
         DepartmentsManagement departmentsManagement =new DepartmentsManagement();
         List<String> departments_list= departmentsManagement.get_department_list();
@@ -54,7 +54,7 @@ public class SearchGroupsActivity extends AppCompatActivity {
                     EmailString = Email.getText().toString();
                     courseName = course_spinner.getSelectedItem().toString();
                     departmentName = department_spinner.getSelectedItem().toString();
-                    dataBase=new DB();
+                    dataBase=DB.getInstance();
 
                     //dataBase.CheckGroupEmail(departmentName,courseName,EmailString,SearchOption,SearchGroupsActivity.this);
                     //startActivity(new Intent(SearchGroupsActivity.this,ViewStudyGroupsActivity.class));

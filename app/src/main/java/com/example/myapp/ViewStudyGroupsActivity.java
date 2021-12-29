@@ -30,7 +30,7 @@ public class ViewStudyGroupsActivity extends AppCompatActivity {
         int SearchOption = (int)x.getSerializableExtra("SearchOption");
         listView=findViewById(R.id.list_view);
         items=new ArrayList<>();
-        dataBase=new DB();
+        dataBase=DB.getInstance();
         if(SearchOption==1){
             dataBase.GroupViewByKey(listView, department, course, ID ,items, ViewStudyGroupsActivity.this);
         }
