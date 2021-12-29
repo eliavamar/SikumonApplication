@@ -14,13 +14,16 @@
         android:theme="@style/Theme.MyApp">
         <activity
             android:name=".ViewStudyGroupsActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".SearchGroupsActivity"/>
         <activity
             android:name=".SearchGroupsActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".PortalSearchActivity"/>
         <activity
             android:name=".PortalSearchActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".PortalActivity"/>
         <activity
             android:name=".MyFiles"
             android:exported="false" />

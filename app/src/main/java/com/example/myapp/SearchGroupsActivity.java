@@ -28,6 +28,7 @@ public class SearchGroupsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_groups);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         GroupKey = findViewById(R.id.GroupKey);
         Email = findViewById(R.id.Email);
         department_spinner = findViewById(R.id.department);
@@ -65,6 +66,7 @@ public class SearchGroupsActivity extends AppCompatActivity {
                         SearchOption=2;
                         dataBase.CheckGroupEmail(departmentName,courseName,EmailString,SearchOption,SearchGroupsActivity.this);
                     }
+                    //else if((TextUtils.isEmpty(Email.getText().toString())) && (TextUtils.isEmpty(GroupKey.getText().toString()) )){
                     else{
                         dataBase.CheckGroupAll(departmentName,courseName,GroupKeyString,SearchOption,SearchGroupsActivity.this);
                     }

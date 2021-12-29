@@ -14,6 +14,7 @@ public class PortalSearchActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_portal_search);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         Filesbtn=findViewById(R.id.Files);
         Studygroupsbtn=findViewById(R.id.studyGroup);
         Filesbtn.setOnClickListener(new View.OnClickListener() {
