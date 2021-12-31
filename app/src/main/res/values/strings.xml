@@ -11,4 +11,5 @@
         <item> Physiotherapy </item>
         <item> Psychology </item>
     </string-array>
+    <string name="LinkedIn"> LinkedIn.com/Example </string>
 </resources>

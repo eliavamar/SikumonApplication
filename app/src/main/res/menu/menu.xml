@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/profile"
+        android:title="Profile"
+        app:showAsAction="never"
+        />
+    <item
+        android:id="@+id/search"
+        android:title="Search"
+        app:showAsAction="never"
+        />
+    <item
+        android:id="@+id/upload"
+        android:title="Upload"
+        app:showAsAction="never"
+        />
+    <item
+        android:id="@+id/myFavorite"
+        android:title="My Favorite"
+        app:showAsAction="never"
+        />
+    <item
+        android:id="@+id/myStudyGroups"
+        android:title="My Study Groups"
+        app:showAsAction="never"
+        />
+    <item
+        android:id="@+id/myFiles"
+        android:title="My Files"
+        app:showAsAction="never"
+        />
+    <item
+        android:id="@+id/logout"
+        android:title="Logout"
+        app:showAsAction="never"
+        />
+</menu>

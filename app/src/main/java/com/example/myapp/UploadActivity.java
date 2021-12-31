@@ -13,6 +13,9 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -212,5 +215,40 @@ public class UploadActivity extends AppCompatActivity {
         ArrayAdapter<String> adapter_2 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item,courses_list);
         adapter_2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         course_spinner.setAdapter(adapter_2);
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater=getMenuInflater();
+        inflater.inflate(R.menu.menu,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.upload:
+                startActivity(new Intent(UploadActivity.this,UploadActivity.class));
+                return true;
+            case R.id.myFiles:
+                startActivity(new Intent(UploadActivity.this,MyFilesActivity.class));
+                return true;
+            case R.id.search:
+                startActivity(new Intent(UploadActivity.this,SearchActivity.class));
+                return true;
+            case R.id.profile:
+                startActivity(new Intent(UploadActivity.this,ProfileActivity.class));
+                return true;
+            case R.id.myStudyGroups:
+                startActivity(new Intent(UploadActivity.this,MyStudyGroups.class));
+                return true;
+            case R.id.logout:
+                DB.logout(this);
+                return true;
+            case R.id.myFavorite:
+                startActivity(new Intent(UploadActivity.this,FavoriteActivity.class));
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

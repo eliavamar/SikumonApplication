@@ -1,6 +1,12 @@
 package com.example.myapp;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -23,7 +29,6 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-//        mAuth = FirebaseAuth.getInstance();
         RegisterBtn=findViewById(R.id.RegisterBtn);
         email=findViewById(R.id.Email);
         pass=findViewById(R.id.Password);
@@ -65,6 +70,40 @@ public class RegisterActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater=getMenuInflater();
+        inflater.inflate(R.menu.menu,menu);
+        return true;
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.upload:
+                startActivity(new Intent(RegisterActivity.this,UploadActivity.class));
+                return true;
+            case R.id.myFiles:
+                startActivity(new Intent(RegisterActivity.this,MyFilesActivity.class));
+                return true;
+            case R.id.search:
+                startActivity(new Intent(RegisterActivity.this,PortalSearchActivity.class));
+                return true;
+            case R.id.profile:
+                startActivity(new Intent(RegisterActivity.this,ProfileActivity.class));
+                return true;
+            case R.id.myStudyGroups:
+                startActivity(new Intent(RegisterActivity.this,MyStudyGroups.class));
+                return true;
+            case R.id.logout:
+                DB.logout(this);
+                return true;
+            case R.id.myFavorite:
+                startActivity(new Intent(RegisterActivity.this,FavoriteActivity.class));
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

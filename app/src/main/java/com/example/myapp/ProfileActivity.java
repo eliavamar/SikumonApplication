@@ -8,18 +8,12 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.ListView;
 
-import java.util.List;
-
-public class FavoriteActivity extends AppCompatActivity {
+public class ProfileActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_favorite);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        ListView listView=(ListView) findViewById(R.id.list_view);
-        DB.favoriteList(listView,FavoriteActivity.this);
+        setContentView(R.layout.activity_profile);
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -27,29 +21,30 @@ public class FavoriteActivity extends AppCompatActivity {
         inflater.inflate(R.menu.menu,menu);
         return true;
     }
+
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
             case R.id.upload:
-                startActivity(new Intent(FavoriteActivity.this,UploadActivity.class));
+                startActivity(new Intent(ProfileActivity.this,UploadActivity.class));
                 return true;
             case R.id.myFiles:
-                startActivity(new Intent(FavoriteActivity.this,MyFilesActivity.class));
+                startActivity(new Intent(ProfileActivity.this,MyFilesActivity.class));
                 return true;
             case R.id.search:
-                startActivity(new Intent(FavoriteActivity.this,PortalSearchActivity.class));
+                startActivity(new Intent(ProfileActivity.this,PortalSearchActivity.class));
                 return true;
             case R.id.profile:
-                startActivity(new Intent(FavoriteActivity.this,ProfileActivity.class));
+                startActivity(new Intent(ProfileActivity.this,ProfileActivity.class));
                 return true;
             case R.id.myStudyGroups:
-                startActivity(new Intent(FavoriteActivity.this,MyStudyGroups.class));
+                startActivity(new Intent(ProfileActivity.this,MyStudyGroups.class));
                 return true;
             case R.id.logout:
                 DB.logout(this);
                 return true;
             case R.id.myFavorite:
-                startActivity(new Intent(FavoriteActivity.this,FavoriteActivity.class));
+                startActivity(new Intent(ProfileActivity.this,FavoriteActivity.class));
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

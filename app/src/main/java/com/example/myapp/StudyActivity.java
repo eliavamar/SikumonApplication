@@ -1,7 +1,13 @@
 package com.example.myapp;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -77,67 +83,6 @@ public class StudyActivity extends AppCompatActivity {
                 dataBase.setStudyGroup(studyGroupData,StudyActivity.this);
             }
         });
-//        List<String> departments_list = new ArrayList<>();
-//        departments_list.add("Choose Department");
-//        departments_list.add("CS");
-//        departments_list.add("Electrical Engineering");
-//        departments_list.add("Mechanical Engineering");
-//        departments_list.add("Structural Engineering");
-//        departments_list.add("Physiotherapy");
-//        departments_list.add("Psychology");
-//        ArrayAdapter<String> adapter_1 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, departments_list);
-//        adapter_1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-//        department_spinner.setAdapter(adapter_1);
-//        department_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//            @Override
-//            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-//                if (adapterView.getItemAtPosition(i).equals("CS")) {
-//                    courses_list.clear();
-//                    courses_list.add("Data Bases");
-//                    courses_list.add("OS");
-//                    courses_list.add("OOP");
-//                    fill_spinner();
-//
-//                } else if (adapterView.getItemAtPosition(i).equals("Electrical Engineering")) {
-//                    courses_list.clear();
-//                    courses_list.add("Electro-magnetism");
-//                    courses_list.add("Control systems");
-//                    courses_list.add("Electricity Technology and Machines");
-//                    fill_spinner();
-//                } else if (adapterView.getItemAtPosition(i).equals("Mechanical Engineering")) {
-//                    courses_list.clear();
-//                    courses_list.add("Manufacturing and Design");
-//                    courses_list.add("Dynamics");
-//                    courses_list.add("Instrumentation and Data Acquisition");
-//                    fill_spinner();
-//                } else if (adapterView.getItemAtPosition(i).equals("Structural Engineering")) {
-//                    courses_list.clear();
-//                    courses_list.add("Computer-Aided Design of Structures");
-//                    courses_list.add("Computer Analysis of Structures");
-//                    courses_list.add("Storage and Industrial Structures");
-//                    fill_spinner();
-//                } else if (adapterView.getItemAtPosition(i).equals("Physiotherapy")) {
-//                    courses_list.clear();
-//                    courses_list.add("Introduction to Treatment");
-//                    courses_list.add("General Surgery");
-//                    courses_list.add("Neurophysiology");
-//                    fill_spinner();
-//                } else if (adapterView.getItemAtPosition(i).equals("Psychology")) {
-//                    courses_list.clear();
-//                    courses_list.add("General Psychology");
-//                    courses_list.add("History of Psychology");
-//                    courses_list.add("Statistics");
-//                    fill_spinner();
-//                }
-//                courses_list.add(0, "Choose Course");
-//            }
-//
-//            @Override
-//            public void onNothingSelected(AdapterView<?> adapterView) {
-//
-//            }
-//
-//        });
     }
     public void fillMapData(){
         switch (state.getCheckedRadioButtonId()){
@@ -174,11 +119,41 @@ public class StudyActivity extends AppCompatActivity {
             studyGroupData.put("Comment", comment.getText().toString());
         }
     }
-//    public void fill_spinner(){
-//        ArrayAdapter<String> adapter_2 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item,courses_list);
-//        adapter_2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-//        course_spinner.setAdapter(adapter_2);
-//    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater=getMenuInflater();
+        inflater.inflate(R.menu.menu,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.upload:
+                startActivity(new Intent(StudyActivity.this,UploadActivity.class));
+                return true;
+            case R.id.myFiles:
+                startActivity(new Intent(StudyActivity.this,MyFilesActivity.class));
+                return true;
+            case R.id.search:
+                startActivity(new Intent(StudyActivity.this,PortalSearchActivity.class));
+                return true;
+            case R.id.profile:
+                startActivity(new Intent(StudyActivity.this,ProfileActivity.class));
+                return true;
+            case R.id.myStudyGroups:
+                startActivity(new Intent(StudyActivity.this,MyStudyGroups.class));
+                return true;
+            case R.id.logout:
+                DB.logout(this);
+                return true;
+            case R.id.myFavorite:
+                startActivity(new Intent(StudyActivity.this,FavoriteActivity.class));
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 
 
 }

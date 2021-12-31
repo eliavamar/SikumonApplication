@@ -20,12 +20,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         dataBase=DB.getInstance();
-        // Checking if user is connected already.
-//        if(user!=null){
-//            System.out.println(user);
-//            startActivity(new Intent(MainActivity.this,PortalActivity.class));
-//
-//        }
         ForgetPass=findViewById(R.id.ForgetPass);
         RegisterLink=findViewById(R.id.RegisterLink);
         PasswordField=findViewById(R.id.PasswordField);

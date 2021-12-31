@@ -1,11 +1,14 @@
 package com.example.myapp;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.github.barteksc.pdfviewer.PDFView;
@@ -16,7 +19,7 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class activity_view extends AppCompatActivity {
+public class ViewActivity extends AppCompatActivity {
     public PDFView pdfView;
     public static final int HTTP_OK=200;
     @Override
@@ -49,9 +52,44 @@ public class activity_view extends AppCompatActivity {
         protected void onPostExecute(InputStream inputStream){
             PDFView.Configurator temp =pdfView.fromStream(inputStream);
             if(temp==null)
-                Toast.makeText(activity_view.this,"null",Toast.LENGTH_LONG).show();
+                Toast.makeText(ViewActivity.this,"null",Toast.LENGTH_LONG).show();
             else
                 temp.load();
+        }
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater=getMenuInflater();
+        inflater.inflate(R.menu.menu,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.upload:
+                startActivity(new Intent(ViewActivity.this,UploadActivity.class));
+                return true;
+            case R.id.myFiles:
+                startActivity(new Intent(ViewActivity.this,MyFilesActivity.class));
+                return true;
+            case R.id.search:
+                startActivity(new Intent(ViewActivity.this,SearchActivity.class));
+                return true;
+            case R.id.profile:
+                startActivity(new Intent(ViewActivity.this,ProfileActivity.class));
+                return true;
+            case R.id.myStudyGroups:
+                startActivity(new Intent(ViewActivity.this,MyStudyGroups.class));
+                return true;
+            case R.id.logout:
+                DB.logout(this);
+                return true;
+            case R.id.myFavorite:
+                startActivity(new Intent(ViewActivity.this,FavoriteActivity.class));
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
 }

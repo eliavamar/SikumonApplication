@@ -13,35 +13,38 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApp">
         <activity
+            android:name=".ProfileActivity"
+            android:exported="false" />
+        <activity
             android:name=".SearchFileDisplayActivity"
             android:exported="false"
-            android:parentActivityName=".SearchActivity"/>
+            android:parentActivityName=".SearchActivity" />
         <activity
             android:name=".MyFilesActivity"
             android:exported="false"
-            android:parentActivityName=".PortalActivity"/>
+            android:parentActivityName=".PortalActivity" />
         <activity
             android:name=".MyStudyGroups"
             android:exported="false"
-            android:parentActivityName=".PortalActivity"/>
+            android:parentActivityName=".PortalActivity" />
         <activity
             android:name=".PortalSearchActivity"
             android:exported="false"
-            android:parentActivityName=".PortalActivity"/>
+            android:parentActivityName=".PortalActivity" />
         <activity
             android:name=".SearchGroupsActivity"
             android:exported="false"
-            android:parentActivityName=".PortalSearchActivity"/>
+            android:parentActivityName=".PortalSearchActivity" />
         <activity
             android:name=".ViewStudyGroupsActivity"
             android:exported="false"
-            android:parentActivityName=".SearchGroupsActivity"/>
+            android:parentActivityName=".SearchGroupsActivity" />
         <activity
             android:name=".ForgetPassActivity"
             android:exported="false"
             android:parentActivityName=".MainActivity" />
         <activity
-            android:name=".activity_view"
+            android:name=".ViewActivity"
             android:exported="false"
             android:parentActivityName=".PortalActivity" />
         <activity

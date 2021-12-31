@@ -2,11 +2,10 @@ package com.example.myapp;
 
 import static android.content.ContentValues.TAG;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.graphics.Color;
 import android.net.Uri;
-import android.text.Layout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,6 +32,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FieldPath;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
@@ -40,8 +40,6 @@ import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
-import java.net.Socket;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -58,12 +56,10 @@ public class DB   {
     private static final int EDIT_DISTANCE=5;
     private static DB instance=null;
     private DB() { }
-
     public static DB getInstance(){
         if(instance==null) instance=new DB();
         return instance;
     }
-
     public void signIn(String email, String password, MainActivity activity){
          mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(activity, new OnCompleteListener<AuthResult>() {
             @Override
@@ -82,7 +78,6 @@ public class DB   {
             }
         });
     }
-
     public void forgetPassword(String email,AppCompatActivity activity){
         db.collection("users").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
@@ -107,7 +102,6 @@ public class DB   {
         });
 
     }
-
     public void register(User user,AppCompatActivity activity){
         mAuth.createUserWithEmailAndPassword(user.getEmail().getEmail(), user.getPass())
                 .addOnCompleteListener(activity, new OnCompleteListener<AuthResult>() {
@@ -147,7 +141,6 @@ public class DB   {
                     }
                 });
     }
-
     public void searchFile(String filename,PDFFile pdfFile, AppCompatActivity activity){
         LinkedList<String> PDF=new LinkedList<>();
         LinkedList<String> PDFName=new LinkedList<>();
@@ -194,7 +187,6 @@ public class DB   {
             }
         });
     }
-
     public void upLoadFile(AppCompatActivity activity,String []path,HashMap<String,String>fileProperties,Uri pdfUri){
         ProgressDialog progressDialog;
         progressDialog=new ProgressDialog(activity);
@@ -250,7 +242,6 @@ public class DB   {
         });
 
     }
-
     public void studyGroupView(ListView listView,ArrayList<String>items,AppCompatActivity activity){
         db.collection("studyGroups")
                 .whereEqualTo("Email", mAuth.getCurrentUser().getEmail())
@@ -282,6 +273,8 @@ public class DB   {
                                         textView.setText(items.get(position));
                                         Button delBtn = (Button) convertView.findViewById(R.id.btnDelete);
                                         delBtn.setText("Delete");
+                                        Button addBtn=(Button)convertView.findViewById(R.id.btnAdd);
+                                        addBtn.setVisibility(View.INVISIBLE);
                                         delBtn.setOnClickListener(new View.OnClickListener() {
                                             @Override
                                             public void onClick(View view) {
@@ -299,15 +292,13 @@ public class DB   {
                     }
                 });
     }
-
     public static void setListViewAdapter(List<String> PDFName,ListView listView,AppCompatActivity activity,List<Boolean> isOwner, List<String> path){
         ArrayAdapter arrayAdapter =new ArrayAdapter(activity.getApplicationContext(), R.layout.out_item_list_1,PDFName)
         {
+
             @NonNull
             @Override
             public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-                TextView mainTV;
-                Button mainBTN;
                 LayoutInflater inflater=LayoutInflater.from(getContext());
                 convertView=inflater.inflate(R.layout.out_item_list_1,parent,false);
                 TextView textView = (TextView) convertView.findViewById(R.id.textView);
@@ -315,7 +306,7 @@ public class DB   {
                 textView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Intent intent = new Intent(activity, activity_view.class);
+                        Intent intent = new Intent(activity, ViewActivity.class);
                         Toast.makeText(activity, PDFName.get(position), Toast.LENGTH_SHORT).show();
                         database.getReference(path.get(position)+"/URL").addValueEventListener(new ValueEventListener() {
                             @Override
@@ -332,6 +323,8 @@ public class DB   {
 
                     }
                 });
+                Button addBtn = (Button) convertView.findViewById(R.id.btnAdd);
+                addBtn.setText("Add");
                 Button delBtn = (Button) convertView.findViewById(R.id.btnDelete);
                 delBtn.setText("Delete");
                 if (position<isOwner.size() && !isOwner.get(position)) delBtn.setVisibility(View.GONE);
@@ -349,6 +342,15 @@ public class DB   {
                                                 @Override
                                                 public void onSuccess(@NonNull Void unused) {
                                                     Toast.makeText(activity,"Removed successfully!",Toast.LENGTH_LONG).show();
+                                                    db.collection("Favorite").whereEqualTo("Path",path.get(position)).get()
+                                                            .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                                                                @Override
+                                                                public void onSuccess(@NonNull QuerySnapshot queryDocumentSnapshots) {
+                                                                    for (QueryDocumentSnapshot documentSnapshot: queryDocumentSnapshots) {
+                                                                        db.collection("Favorite").document(documentSnapshot.getId()).delete();
+                                                                    }
+                                                                }
+                                                            });
                                                     activity.recreate();
                                                 }
                                             });
@@ -363,12 +365,17 @@ public class DB   {
                         });
                     }
                 });
+                addBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        addFavorite(path.get(position),activity);
+                    }
+                });
                 return  convertView;
             }
         };
         listView.setAdapter(arrayAdapter);
     }
-
     public void myFileView(List<String> PDF, List<String> PDFName,ListView listView,AppCompatActivity activity){
         databaseReference=FirebaseDatabase.getInstance().getReference("PDF");
         databaseReference.addValueEventListener(new ValueEventListener() {
@@ -397,7 +404,6 @@ public class DB   {
             }
         });
     }
-
     public void setStudyGroup(Map<String,Object> studyGroupData,AppCompatActivity activity){
         studyGroupData.put("Email",mAuth.getCurrentUser().getEmail());
         db.collection("studyGroups")
@@ -425,7 +431,7 @@ public class DB   {
         intent.putExtra("SearchOption",SearchOption);
         activity.startActivity(intent);
     }
-        public void GroupViewByKey(ListView listView,String department,String course,String GroupKey,ArrayList<String>items,AppCompatActivity activity) {
+    public void GroupViewByKey(ListView listView,String department,String course,String GroupKey,ArrayList<String>items,AppCompatActivity activity) {
         db.collection("studyGroups")
                 .whereEqualTo("Department",department)
                 .whereEqualTo("Course",course)
@@ -453,9 +459,6 @@ public class DB   {
                                 public View getView(int position, View convertView, ViewGroup parent) {
                                     View view = super.getView(position, convertView, parent);
                                     TextView textView = ((TextView) view.findViewById(android.R.id.text1));
-                                    textView.setMinHeight(0); // Min Height
-                                    textView.setMinimumHeight(0); // Min Height
-                                    textView.setHeight(420); // Height
                                     return view;
                                 }
                             });
@@ -564,4 +567,114 @@ public class DB   {
                     }
                 });
     }
+    public static void logout(Activity activity){
+        FirebaseAuth.getInstance().signOut();
+        Toast.makeText(activity,"You have been logged out successfully",Toast.LENGTH_LONG).show();
+        activity.startActivity(new Intent(activity,MainActivity.class));
+    }
+    public static void addFavorite(String path,Activity activity) {
+        Map<String,String> map=new HashMap<>();
+        map.put("Path",path);
+        map.put("Email",mAuth.getCurrentUser().getEmail());
+        String [] split_path=path.split("/");
+        int file_name_pos=3;
+        String file_name=split_path[file_name_pos];
+        map.put("File Name",file_name);
+        db.collection("Favorite").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.isSuccessful()) {
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        if (document.getData().get("Email") == null)
+                            continue;
+                        if (Objects.equals(document.getData().get("Path"), path)&&Objects.equals(document.getData().get("Email"), mAuth.getCurrentUser().getEmail())) {
+                            Toast.makeText(activity, "Already in the favorite!", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                    }
+                    db.collection("Favorite").add(map).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                        @Override
+                        public void onSuccess(@NonNull DocumentReference documentReference) {
+                            Toast.makeText(activity, "Added to favorite!", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+            }
+        });
+    }
+    public static void favoriteList(ListView listView,Activity activity){
+        LinkedList<String>path=new LinkedList<>();
+        LinkedList<String>PDFName=new LinkedList<>();
+        db.collection("Favorite").
+                whereEqualTo("Email",mAuth.getCurrentUser().getEmail()).
+                get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(@NonNull QuerySnapshot queryDocumentSnapshots)
+            {
+
+                for(QueryDocumentSnapshot documentSnapshot: queryDocumentSnapshots) {
+                    path.add(documentSnapshot.get("Path").toString());
+                    PDFName.add(documentSnapshot.get("File Name").toString());
+                }
+                ArrayAdapter arrayAdapter =new ArrayAdapter(activity.getApplicationContext(), R.layout.out_item_list_1,PDFName)
+                {
+                    @NonNull
+                    @Override
+                    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+
+                        LayoutInflater inflater=LayoutInflater.from(getContext());
+                        convertView=inflater.inflate(R.layout.out_item_list_1,parent,false);
+                        TextView textView = (TextView) convertView.findViewById(R.id.textView);
+                        textView.setText(PDFName.get(position));
+                        textView.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                Intent intent = new Intent(activity, ViewActivity.class);
+                                Toast.makeText(activity, PDFName.get(position), Toast.LENGTH_SHORT).show();
+                                database.getReference(path.get(position)+"/URL").addValueEventListener(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                        intent.putExtra("URL",snapshot.getValue(String.class)); //Put your id to your next Intent
+                                        activity.startActivity(intent);
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
+
+                                    }
+                                });
+
+                            }
+                        });
+                        Button delBtn = (Button) convertView.findViewById(R.id.btnDelete);
+                        Button addBtn=(Button)convertView.findViewById(R.id.btnAdd);
+                        addBtn.setVisibility(View.INVISIBLE);
+                        delBtn.setText("Remove");
+                        delBtn.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                db.collection("Favorite").
+                                        whereEqualTo("Email",mAuth.getCurrentUser().getEmail()).whereEqualTo("Path",path.get(position)).
+                                        get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                                    @Override
+                                    public void onSuccess(@NonNull QuerySnapshot queryDocumentSnapshots) {
+                                        for (QueryDocumentSnapshot documentSnapshot: queryDocumentSnapshots) {
+                                            db.collection("Favorite").document(documentSnapshot.getId()).delete();
+                                        }
+                                        activity.recreate();
+                                    }
+                                });
+                            }
+                        });
+                        return  convertView;
+                    }
+                };
+                listView.setAdapter(arrayAdapter);
+
+            }
+        });
+
+
+    }
+
 }
