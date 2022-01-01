@@ -22,8 +22,9 @@ public class SearchFileDisplayActivity extends AppCompatActivity {
     ListView listView;
     List<String> PDF;
     List<String> PDFName;
-    List<Boolean> isOwner;
+    List<String> isOwner;
     List<String> path;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,7 +34,7 @@ public class SearchFileDisplayActivity extends AppCompatActivity {
         Intent i = getIntent();
         PDF = (List<String>)i.getSerializableExtra("PDF");
         PDFName = (List<String>)i.getSerializableExtra("PDFName");
-        isOwner=(List<Boolean>) i.getSerializableExtra("isOwner");
+        isOwner=(List<String>) i.getSerializableExtra("isOwner");
         path=(List<String>) i.getSerializableExtra("path");
         DB.setListViewAdapter(PDFName,listView,SearchFileDisplayActivity.this,isOwner,path);
     }

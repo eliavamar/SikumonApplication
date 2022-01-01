@@ -16,10 +16,10 @@
         android:inputType="textEmailAddress"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.84"
+        app:layout_constraintHorizontal_bias="0.85"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.166" />
+        app:layout_constraintVertical_bias="0.122" />
 
     <EditText
         android:id="@+id/Password"
@@ -73,11 +73,10 @@
         android:id="@+id/radio"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="72dp"
         android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="@+id/PasswordRepeat"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/PasswordRepeat"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/PasswordRepeat">
 
         <RadioButton
@@ -103,21 +102,35 @@
         android:text="Register"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/radio"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.563"
         app:layout_constraintStart_toStartOf="@+id/radio"
-        app:layout_constraintTop_toBottomOf="@+id/department" />
+        app:layout_constraintTop_toBottomOf="@+id/department"
+        app:layout_constraintVertical_bias="0.083" />
 
     <Spinner
         android:id="@+id/department"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="52dp"
         android:entries="@array/departments"
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="@+id/radio"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.2"
         app:layout_constraintStart_toStartOf="@+id/radio"
         app:layout_constraintTop_toBottomOf="@+id/radio" />
+
+    <TextView
+        android:id="@+id/passRepeatTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Password again:"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/PasswordRepeat"
+        app:layout_constraintEnd_toStartOf="@+id/PasswordRepeat"
+        app:layout_constraintHorizontal_bias="0.424"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/PasswordView"
+        app:layout_constraintVertical_bias="0.844" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

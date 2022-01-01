@@ -8,12 +8,22 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 public class ProfileActivity extends AppCompatActivity {
+    TextView followers,following,phone,email,department,orientation;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        followers=(TextView) findViewById(R.id.followers);
+        following=(TextView) findViewById(R.id.following);
+        phone=(TextView) findViewById(R.id.phone);
+        email=(TextView) findViewById(R.id.email);
+        department=(TextView) findViewById(R.id.department);
+        orientation=(TextView) findViewById(R.id.orientation);
+        DB.fillProfile(orientation,email,phone,followers,following,department);
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
