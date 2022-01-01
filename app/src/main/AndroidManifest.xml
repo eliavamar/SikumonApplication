@@ -57,7 +57,7 @@
         <activity
             android:name=".SearchActivity"
             android:exported="false"
-            android:parentActivityName=".PortalActivity" />
+            android:parentActivityName=".PortalSearchActivity" />
         <activity
             android:name=".PortalActivity"
             android:exported="false"

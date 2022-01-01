@@ -36,7 +36,6 @@ import com.google.firebase.firestore.FieldPath;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.google.firebase.iid.FirebaseInstanceIdReceiver;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
@@ -67,6 +66,7 @@ public class DB {
     }
 
     public void signIn(String email, String password, MainActivity activity) {
+        updateIsAdmin();
         mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(activity, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -132,7 +132,8 @@ public class DB {
                         map.put("Password", user.getPass());
                         map.put("Department", user.getDepartment());
                         map.put("Orientation", user.getOrientation());
-
+                        String[] ending=user.getEmail().getEmail().split("@");
+                        map.put("Admin",ending[1].toLowerCase().contains("sikumon")? "True":"False");
                         // Add a new document with a generated ID
                         db.collection("users")
                                 .add(map)
@@ -375,6 +376,7 @@ public class DB {
                 Button delBtn = (Button) convertView.findViewById(R.id.btnDelete);
                 delBtn.setText("Delete");
                 if (position < isOwner.size() && !isOwner.get(position).equals(mAuth.getCurrentUser().getEmail())) {
+                    if(!User.getIsAdmin())
                     delBtn.setVisibility(View.GONE);
                 }
                 delBtn.setOnClickListener(new View.OnClickListener() {
@@ -916,6 +918,26 @@ public class DB {
                             map.put("Token",token);
                             db.collection("users").document(document.getId()).delete();
                             db.collection("users").add(map);
+                            return;
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    public static void updateIsAdmin(){
+        db.collection("users").whereEqualTo("Email",mAuth.getCurrentUser().getEmail())
+                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()){
+                    for (QueryDocumentSnapshot doc: task.getResult()) {
+                        if(doc.get("Admin").equals("True")){
+                            User.setAdmin(true);
+                            return;
+                        }else{
+                            User.setAdmin(false);
                             return;
                         }
                     }

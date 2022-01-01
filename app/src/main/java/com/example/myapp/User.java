@@ -9,11 +9,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class User {
+    private static boolean isAdmin;
     Email email;
     Password pass;
     String orientation;
     String department;
+
     public User(Email email, String pass, String orientation, String department) {
+        isAdmin=false;
         this.email=email;
         this.pass =new Password(pass);
         this.orientation = orientation;
@@ -56,4 +59,9 @@ public class User {
         this.orientation = orientation;
     }
 
+    public static void setAdmin(boolean flag){
+        isAdmin=flag;
+    }
+
+    public static boolean getIsAdmin(){ return isAdmin; }
 }

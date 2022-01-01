@@ -1,18 +1,13 @@
 package com.example.myapp;
 
-//import android.support.v7.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.ListView;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
-import com.github.barteksc.pdfviewer.PDFView;
-
 import java.util.ArrayList;
 
 public class ViewStudyGroupsActivity extends AppCompatActivity {

@@ -7,20 +7,23 @@
     android:background="@drawable/portal"
     tools:context=".PortalSearchActivity">
 
+
     <TextView
         android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="362dp"
+        android:layout_height="72dp"
         android:alpha="0.7"
         android:background="@color/white"
-        android:text="“Once you stop learning, you start dying”"
+        android:text="“Education is what remains after one has forgotten what one has learned in school” - Albert Einstein."
+        android:textAlignment="center"
+        android:textColor="@color/black"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.355"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.139" />
-
+        app:layout_constraintVertical_bias="0.075" />
 
     <Button
         android:id="@+id/studyGroup"
@@ -31,27 +34,27 @@
         android:text="Study Groups"
         android:textSize="20sp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.241"
+        app:layout_constraintHorizontal_bias="0.149"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintVertical_bias="0.683" />
 
     <Button
         android:id="@+id/Files"
         android:layout_width="150dp"
         android:layout_height="148dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="82dp"
-        android:layout_marginBottom="376dp"
         android:drawableTop="@drawable/ic_file"
         android:text="Files"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/studyGroup"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.816"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintHorizontal_bias="0.506"
+        app:layout_constraintStart_toEndOf="@+id/studyGroup"
+        app:layout_constraintTop_toTopOf="@+id/studyGroup" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 
