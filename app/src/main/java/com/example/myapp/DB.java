@@ -826,8 +826,12 @@ public class DB {
                             }
                         });
                         Button delBtn = (Button) convertView.findViewById(R.id.btnDelete);
+                        Button follow= (Button) convertView.findViewById(R.id.followBtn);
+                        Button unFollow= (Button) convertView.findViewById(R.id.unfollowBtn);
+                        follow.setVisibility(View.GONE);
+                        unFollow.setVisibility(View.GONE);
                         Button addBtn = (Button) convertView.findViewById(R.id.btnAdd);
-                        addBtn.setVisibility(View.INVISIBLE);
+                        addBtn.setVisibility(View.GONE);
                         delBtn.setText("Remove");
                         delBtn.setOnClickListener(new View.OnClickListener() {
                             @Override
