@@ -8,7 +8,7 @@
     <TextView
         android:id="@+id/textView"
         android:layout_width="204dp"
-        android:layout_height="118dp"
+        android:layout_height="wrap_content"
         android:text="TextView\ns\ns\n"
         android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -16,8 +16,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0">
-    </TextView>
+        app:layout_constraintVertical_bias="0.0"></TextView>
 
     <Button
         android:id="@+id/btnDelete"
@@ -26,10 +25,10 @@
         android:text="Button"
         app:layout_constraintBottom_toBottomOf="@+id/btnAdd"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.727"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/btnAdd"
         app:layout_constraintTop_toTopOf="@+id/textView"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/btnAdd"
@@ -41,7 +40,7 @@
         app:layout_constraintHorizontal_bias="0.668"
         app:layout_constraintStart_toStartOf="@+id/textView"
         app:layout_constraintTop_toTopOf="@+id/textView"
-        app:layout_constraintVertical_bias="0.442" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/followBtn"
@@ -50,12 +49,12 @@
         android:layout_marginTop="32dp"
         android:layout_marginEnd="96dp"
         android:text="Button"
-        app:layout_constraintBottom_toBottomOf="@+id/textView"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/btnAdd"
         app:layout_constraintTop_toBottomOf="@+id/btnAdd"
-        app:layout_constraintVertical_bias="0.78" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/unfollowBtn"
@@ -65,7 +64,7 @@
         android:text="Button"
         app:layout_constraintBottom_toBottomOf="@+id/followBtn"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.666"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/followBtn"
         app:layout_constraintTop_toBottomOf="@+id/btnDelete"
         app:layout_constraintVertical_bias="1.0" />

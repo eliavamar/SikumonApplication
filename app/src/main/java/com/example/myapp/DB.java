@@ -66,7 +66,6 @@ public class DB {
     }
 
     public void signIn(String email, String password, MainActivity activity) {
-        updateIsAdmin();
         mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(activity, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -90,6 +89,7 @@ public class DB {
                                                     key[0] =document.getId();
                                                     db.collection("users").document(key[0]).delete();
                                                     db.collection("users").add(map);
+                                                    updateIsAdmin(email);
                                                     return;
                                                 }
                                             }
@@ -376,8 +376,7 @@ public class DB {
                 Button delBtn = (Button) convertView.findViewById(R.id.btnDelete);
                 delBtn.setText("Delete");
                 if (position < isOwner.size() && !isOwner.get(position).equals(mAuth.getCurrentUser().getEmail())) {
-                    if(!User.getIsAdmin())
-                    delBtn.setVisibility(View.GONE);
+                    if(!User.getIsAdmin()){ delBtn.setVisibility(View.GONE);}
                 }
                 delBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -930,8 +929,8 @@ public class DB {
         });
     }
 
-    public static void updateIsAdmin(){
-        db.collection("users").whereEqualTo("Email",mAuth.getCurrentUser().getEmail())
+    public static void updateIsAdmin(String email){
+        db.collection("users").whereEqualTo("Email",email)
                 .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -939,11 +938,10 @@ public class DB {
                     for (QueryDocumentSnapshot doc: task.getResult()) {
                         if(doc.get("Admin").equals("True")){
                             User.setAdmin(true);
-                            return;
                         }else{
                             User.setAdmin(false);
-                            return;
                         }
+                        return;
                     }
                 }
             }
